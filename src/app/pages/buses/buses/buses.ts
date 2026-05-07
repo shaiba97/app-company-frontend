@@ -3,13 +3,14 @@ import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
+import { BusService } from '../../../core/services/bus';
 
 interface Bus {
   id: string;
   name: string;
   chairs: number;
   seatStartFrom: 'LEFT' | 'RIGHT';
-  plate: string;
+  plate: { arabic?: string; english?: string; numbers?: string } | string | null;
   companyId: string;
   createdAt: string;
   updatedAt: string;
@@ -28,37 +29,33 @@ export class BusesComponent {
 
   buses = signal<Bus[]>([]);
   showForm = signal(false);
+  showModal = signal(false);
   editingBus = signal<Bus | null>(null);
   loading = signal(false);
 
-  formData = signal({
+  formData = signal<{
+    name: string;
+    chairs: number;
+    seatStartFrom: 'LEFT' | 'RIGHT';
+    plate: { arabic: string; english: string; numbers: string };
+  }>({
     name: '',
     chairs: 0,
-    seatStartFrom: 'RIGHT' as 'LEFT' | 'RIGHT',
+    seatStartFrom: 'RIGHT',
+    plate: {
+      arabic: '',
+      english: '',
+      numbers: '',
+    },
   });
 
-  constructor() {
+  constructor(private busService: BusService) {
     this.loadBuses();
   }
 
-  private getBuses() {
-    return this.http.get<Bus[]>(`${this.apiUrl}/buses/get-buses`);
-  }
-
-  private createBus(data: Partial<Bus>) {
-    return this.http.post<Bus>(`${this.apiUrl}/buses/post-bus`, data);
-  }
-
-  private updateBus(id: string, data: Partial<Bus>) {
-    return this.http.patch<Bus>(`${this.apiUrl}/buses/update-bus/${id}`, data);
-  }
-
-  private removeBus(id: string) {
-    return this.http.delete(`${this.apiUrl}/buses/delete-bus/${id}`);
-  }
 
   loadBuses() {
-    this.getBuses().subscribe({
+    this.busService.getBuses().subscribe({
       next: (buses: Bus[]) => this.buses.set(buses),
       error: () => {},
     });
@@ -76,28 +73,43 @@ export class BusesComponent {
       name: '',
       chairs: 0,
       seatStartFrom: 'RIGHT',
+      plate: {
+        arabic: '',
+        english: '',
+        numbers: '',
+      },
     });
-    this.showForm.set(true);
+    this.showModal.set(true);
   }
 
-  openEditForm(bus: Bus) {
-    this.editingBus.set(bus);
-    this.formData.set({
-      name: bus.name,
-      chairs: bus.chairs,
-      seatStartFrom: bus.seatStartFrom,
-    });
-    this.showForm.set(true);
-  }
-
-  closeForm() {
-    this.showForm.set(false);
-    this.editingBus.set(null);
+  closeModal() {
+    this.showModal.set(false);
     this.formData.set({
       name: '',
       chairs: 0,
       seatStartFrom: 'RIGHT',
+      plate: {
+        arabic: '',
+        english: '',
+        numbers: '',
+      },
     });
+  }
+
+  openEditForm(bus: Bus) {
+    this.editingBus.set(bus);
+    const plate = typeof bus.plate === 'string' ? { arabic: bus.plate, english: '', numbers: '' } : bus.plate || { arabic: '', english: '', numbers: '' };
+    this.formData.set({
+      name: bus.name,
+      chairs: bus.chairs,
+      seatStartFrom: bus.seatStartFrom,
+      plate: {
+        arabic: plate.arabic || '',
+        english: plate.english || '',
+        numbers: plate.numbers || '',
+      },
+    });
+    this.showModal.set(true);
   }
 
   submitForm() {
@@ -106,14 +118,25 @@ export class BusesComponent {
 
     this.loading.set(true);
 
+    const submitData = {
+      name: data.name,
+      chairs: data.chairs,
+      seatStartFrom: data.seatStartFrom,
+      plate: {
+        arabic: data.plate.arabic,
+        english: data.plate.english,
+        numbers: data.plate.numbers,
+      },
+    };
+
     const request = this.editingBus()
-      ? this.updateBus(this.editingBus()!.id, data)
-      : this.createBus(data);
+      ? this.busService.updateBus(this.editingBus()!.id, submitData)
+      : this.busService.createBus(submitData);
 
     request.subscribe({
       next: () => {
         this.loadBuses();
-        this.closeForm();
+        this.closeModal();
         this.loading.set(false);
       },
       error: () => {
@@ -125,7 +148,7 @@ export class BusesComponent {
   removeBusItem(id: string) {
     if (!confirm('هل أنت متأكد من حذف هذه الحاقية؟')) return;
 
-    this.removeBus(id).subscribe({
+    this.busService.deleteBus(id).subscribe({
       next: () => {
         const currentBuses = this.buses();
         this.buses.set(currentBuses.filter(b => b.id !== id));

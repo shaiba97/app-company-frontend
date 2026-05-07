@@ -34,7 +34,7 @@
             </div>
             <div class="flex flex-col gap-1">
               <span class="text-sm text-[var(--text-muted)]">اللوحة</span>
-              <span class="text-lg font-medium text-[var(--text-primary)]">{{ bus()!.plate || '-' }}</span>
+              <span class="text-lg font-medium text-[var(--text-primary)]">{{ bus()!.plate.numbers }}/{{ bus()!.plate.english }}/{{ bus()!.plate.arabic }}</span>
             </div>
             <div class="flex flex-col gap-1">
               <span class="text-sm text-[var(--text-muted)]">تاريخ الإضافة</span>

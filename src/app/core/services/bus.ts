@@ -2,12 +2,18 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 
+export interface Plate {
+  arabic: string;
+  english: string;
+  numbers: string;
+}
+
 export interface Bus {
   id: string;
   name: string;
   chairs: number;
   seatStartFrom: 'LEFT' | 'RIGHT';
-  plate: string;
+  plate: Plate;
   companyId: string;
   createdAt: string;
   updatedAt: string;
@@ -16,7 +22,7 @@ export interface Bus {
 @Injectable({ providedIn: 'root' })
 export class BusService {
   private http = inject(HttpClient);
-  private apiUrl = environment.apiUrl;
+  private apiUrl = environment.apiUrl.company;
 
   getBuses() {
     return this.http.get<Bus[]>(`${this.apiUrl}/buses/get-buses`);
@@ -43,6 +49,6 @@ export class BusService {
   }
 
   updateBus(id: string, data: Partial<Bus>) {
-    return this.http.patch<Bus>(`${this.apiUrl}/buses/update-bus/${id}`, data);
+    return this.http.put<Bus>(`${this.apiUrl}/buses/update-bus/${id}`, data);
   }
 }

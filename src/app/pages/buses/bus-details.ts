@@ -8,7 +8,11 @@ interface Bus {
   name: string;
   chairs: number;
   seatStartFrom: 'LEFT' | 'RIGHT';
-  plate: string;
+  plate: {
+    arabic: string;
+    english: string;
+    numbers: string;
+  };
   companyId: string;
   createdAt: string;
   updatedAt: string;

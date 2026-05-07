@@ -32,12 +32,16 @@ export class LoginComponent {
     const { email, password } = this.form.value;
 
     this.authService.login(email!, password!).subscribe({
-      next: (res: { token: string; user: unknown }) => {
-        this.authService.setSession(res.token, res.user as never);
-        this.router.navigate(['/dashboard']);
+      next: (res: any) => {
+        if (res?.success && res?.user?.id) {
+          this.router.navigateByUrl('/dashboard');
+        } else {
+          this.errorMessage.set(res?.message || 'فشل تسجيل الدخول');
+          this.isLoading.set(false);
+        }
       },
       error: (err: { error?: { message?: string } }) => {
-        this.errorMessage.set(err?.error?.message || 'حدث خطأ — يرجى المحاولة مجدداً');
+        this.errorMessage.set(err?.error?.message || 'البريد الإلكتروني أو كلمة المرور غير صحيحة');
         this.isLoading.set(false);
       },
     });

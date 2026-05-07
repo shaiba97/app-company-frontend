@@ -8,8 +8,6 @@ export interface AuthUser {
   name:         string;
   email:        string;
   role:         'COMPANY' | 'CUSTOMER' | 'ADMIN';
-  companyId?:   string;
-  companyStatus?: string;
 }
 
 @Injectable({ providedIn: 'root' })
@@ -19,6 +17,8 @@ export class AuthService {
 
   private _user  = signal<AuthUser | null>(null);
   private _token = signal<string | null>(null);
+  
+  private apiUrl       = environment.apiUrl.company
 
   isLoggedIn   = computed(() => !!this._token());
   currentUser  = computed(() => this._user());
@@ -65,10 +65,10 @@ export class AuthService {
       user:  AuthUser;
       message: string;
     }>(
-      `${environment.apiUrl}/auth/post-login`,
+      `${this.apiUrl}/auth/post-login`,
       { email, password }
     );
-  }
+  } 
 
   register(data: {
     name: string;
@@ -81,7 +81,7 @@ export class AuthService {
       user: AuthUser;
       message: string;
     }>(
-      `${environment.apiUrl}/users/post-user`,
+      `${this.apiUrl}/users/post-user`,
       data
     );
   }
@@ -99,7 +99,7 @@ export class AuthService {
     const token = this._token();
     if (token) {
       this.http.post(
-        `${environment.apiUrl}/auth/logout`,
+        `${this.apiUrl}/auth/logout`,
         {},
         {
           headers: {

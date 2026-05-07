@@ -1,4 +1,7 @@
 export const environment = {
   production: false,
-  apiUrl:     'http://localhost:3001/api',
+  apiUrl:     {
+    company:  'http://localhost:3001/api',
+    customer: 'http://localhost:3002/api',
+  },
 };
