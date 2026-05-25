@@ -1,13 +1,13 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
-import { LucideBus, LucideMail, LucideLock, LucideEye, LucideAlertCircle, LucideLoaderCircle, LucideArrowLeft, LucideLogIn } from '@lucide/angular';
+import { Router } from '@angular/router';
+import { LucideBus, LucideMail, LucideLock, LucideEye, LucideAlertCircle, LucideLoaderCircle, LucideLogIn } from '@lucide/angular';
 import { AuthService, LoginResponse } from '../../../../core/services/auth';
 
 @Component({
   selector:    'app-login',
   standalone:  true,
-  imports:     [ReactiveFormsModule, RouterLink, LucideBus, LucideMail, LucideLock, LucideEye, LucideAlertCircle, LucideLoaderCircle, LucideArrowLeft, LucideLogIn],
+  imports:     [ReactiveFormsModule, LucideBus, LucideMail, LucideLock, LucideEye, LucideAlertCircle, LucideLoaderCircle, LucideLogIn],
   templateUrl: './login.html',
 })
 export class LoginComponent {
