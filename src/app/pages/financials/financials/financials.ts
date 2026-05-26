@@ -1,5 +1,5 @@
 import { Component, signal, inject, OnInit, computed } from '@angular/core';
-import { NgClass, DatePipe } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { ChartComponent } from 'ng-apexcharts';
 import { LucideTrendingUp, LucideWallet, LucideBanknote, LucideTicket, LucideClock, LucideMapPin, LucideLoaderCircle, LucideAlertCircle, LucideRefreshCw, LucideCalendar, LucideBarChart3 } from '@lucide/angular';
 import { FinancialsService, FinancialSummary } from '../../../core/services/financials/financials.service';
@@ -20,7 +20,7 @@ export type ChartOptions = {
 @Component({
   selector: 'app-financials',
   standalone: true,
-  imports: [NgClass, DatePipe, ChartComponent, LucideTrendingUp, LucideWallet, LucideTicket, LucideClock, LucideMapPin, LucideLoaderCircle, LucideAlertCircle, LucideRefreshCw, LucideCalendar, LucideBarChart3],
+  imports: [NgClass, ChartComponent, LucideTrendingUp, LucideWallet, LucideTicket, LucideClock, LucideMapPin, LucideLoaderCircle, LucideAlertCircle, LucideRefreshCw, LucideCalendar, LucideBarChart3],
   templateUrl: './financials.html',
 })
 export class FinancialsComponent implements OnInit {

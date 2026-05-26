@@ -4,14 +4,13 @@ import { Router, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { TripService, Trip } from '../../../core/services/trip';
 import { BusService, Bus } from '../../../core/services/bus';
-import { DurationPipe } from '../../../pipes/duration-pipe';
 import { ArabicNumberPipe } from '../../../pipes/arabic-number/arabic-number-pipe';
 import { LucideBus, LucidePencil, LucideTrash2, LucideX, LucideArrowLeft, LucideRoute } from '@lucide/angular';
 
 @Component({
   selector: 'app-trips',
   standalone: true,
-  imports: [CommonModule, RouterModule, FormsModule, DurationPipe, ArabicNumberPipe, LucideBus, LucidePencil, LucideTrash2, LucideX, LucideArrowLeft, LucideRoute],
+  imports: [CommonModule, RouterModule, FormsModule, ArabicNumberPipe, LucideBus, LucidePencil, LucideTrash2, LucideX, LucideArrowLeft, LucideRoute],
   templateUrl: './trips.html',
   styleUrl: './trips.css',
 })

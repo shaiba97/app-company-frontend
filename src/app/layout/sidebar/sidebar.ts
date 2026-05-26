@@ -1,6 +1,5 @@
 import { Component, input, output, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
-import { NgClass } from '@angular/common';
 import { LucideLayoutDashboard, LucideBus, LucideRoute, LucideWallet, LucideUser, LucideSun, LucideMoon, LucideLogOut, LucideX } from '@lucide/angular';
 import { ThemeService } from '../../core/services/theme';
 import { AuthService } from '../../core/services/auth';
@@ -13,7 +12,7 @@ interface NavItem {
 @Component({
   selector:    'app-sidebar',
   standalone:  true,
-  imports:     [RouterLink, RouterLinkActive, NgClass, LucideLayoutDashboard, LucideBus, LucideRoute, LucideWallet, LucideUser, LucideSun, LucideMoon, LucideLogOut, LucideX],
+  imports:     [RouterLink, RouterLinkActive, LucideLayoutDashboard, LucideBus, LucideRoute, LucideWallet, LucideUser, LucideSun, LucideMoon, LucideLogOut, LucideX],
   templateUrl: './sidebar.html',
 })
 export class SidebarComponent {

@@ -3,7 +3,7 @@ import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
 import { SidebarComponent } from '../sidebar/sidebar';
 import { TopbarComponent } from '../topbar/topbar';
 import { AuthService } from '../../core/services/auth';
-import { LucideLayoutDashboard, LucideBus, LucideRoute, LucideWallet, LucideUser, LucideSun, LucideMoon, LucideMenu } from '@lucide/angular';
+import { LucideLayoutDashboard, LucideBus, LucideRoute, LucideWallet, LucideUser, LucideSun, LucideMoon } from '@lucide/angular';
 import { ThemeService } from '../../core/services/theme';
 
 interface NavItem {
@@ -14,7 +14,7 @@ interface NavItem {
 
 @Component({
   selector:    'app-layout',
-  imports:     [RouterOutlet, RouterLink, RouterLinkActive, SidebarComponent, TopbarComponent, LucideLayoutDashboard, LucideBus, LucideRoute, LucideWallet, LucideUser, LucideSun, LucideMoon, LucideMenu],
+  imports:     [RouterOutlet, RouterLink, RouterLinkActive, SidebarComponent, TopbarComponent, LucideLayoutDashboard, LucideBus, LucideRoute, LucideWallet, LucideUser, LucideSun, LucideMoon],
   templateUrl: './layout.html',
 })
 export class LayoutComponent {

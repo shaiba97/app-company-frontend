@@ -1,6 +1,5 @@
 import { Component, output, inject, computed, signal, HostListener } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
-import { NgClass } from '@angular/common';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { filter, map } from 'rxjs/operators';
 import { LucideLayoutDashboard, LucideBus, LucideRoute, LucideTicket, LucideCalendar, LucideWallet, LucideUser, LucideBell, LucideBellOff, LucideSun, LucideMoon, LucideLogOut, LucideMenu, LucideChevronDown } from '@lucide/angular';
@@ -10,7 +9,7 @@ import { AuthService } from '../../core/services/auth';
 @Component({
   selector:    'app-topbar',
   standalone:  true,
-  imports:     [NgClass, LucideLayoutDashboard, LucideBus, LucideRoute, LucideTicket, LucideCalendar, LucideWallet, LucideUser, LucideBell, LucideBellOff, LucideSun, LucideMoon, LucideLogOut, LucideMenu, LucideChevronDown],
+  imports:     [LucideLayoutDashboard, LucideBus, LucideRoute, LucideTicket, LucideCalendar, LucideWallet, LucideUser, LucideBell, LucideBellOff, LucideSun, LucideMoon, LucideLogOut, LucideMenu, LucideChevronDown],
   templateUrl: './topbar.html',
 })
 export class TopbarComponent {

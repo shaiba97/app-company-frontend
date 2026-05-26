@@ -1,13 +1,13 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { LucideUser, LucidePencil, LucideCheck, LucideX, LucideAlertCircle, LucideTrash2, LucideMail } from '@lucide/angular';
+import { LucideUser, LucidePencil, LucideCheck, LucideX, LucideAlertCircle, LucideTrash2 } from '@lucide/angular';
 import { AuthService, UpdateProfileResponse, DeleteAccountResponse } from '../../../core/services/auth';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [FormsModule, LucideUser, LucidePencil, LucideCheck, LucideX, LucideAlertCircle, LucideTrash2, LucideMail],
+  imports: [FormsModule, LucideUser, LucidePencil, LucideCheck, LucideX, LucideAlertCircle, LucideTrash2],
   templateUrl: './profile.html',
 })
 export class ProfileComponent {
