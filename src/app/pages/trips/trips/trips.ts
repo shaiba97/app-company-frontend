@@ -175,12 +175,13 @@ export class TripsComponent implements OnInit {
     if (!this.validateForm()) return;
     this.submitting.set(true);
 
+    const fmt = (t: string) => t.includes(':') && t.split(':').length === 2 ? t + ':00' : t;
     const data = {
       fromState: this.fromState(), toState: this.toState(),
       fromCity: this.fromCity(), toCity: this.toCity(),
       fromStation: this.fromStation(), toStation: this.toStation(),
-      departureDate: new Date(this.departureDate()), departureTime: this.departureTime(),
-      arrivalDate: new Date(this.arrivalDate()), arrivalTime: this.arrivalTime(),
+      departureDate: new Date(this.departureDate()), departureTime: fmt(this.departureTime()),
+      arrivalDate: new Date(this.arrivalDate()), arrivalTime: fmt(this.arrivalTime()),
       price: this.price(), status: this.status(), busId: this.busId(),
     };
     
