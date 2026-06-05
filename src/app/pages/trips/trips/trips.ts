@@ -4,6 +4,7 @@ import { Router, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { TripService, Trip } from '../../../core/services/trip';
 import { BusService, Bus } from '../../../core/services/bus';
+import { CitiesService, State } from '../../../core/services/cities';
 import { ArabicNumberPipe } from '../../../pipes/arabic-number/arabic-number-pipe';
 import { LucideBus, LucidePencil, LucideTrash2, LucideX, LucideArrowLeft, LucideRoute } from '@lucide/angular';
 
@@ -17,6 +18,7 @@ import { LucideBus, LucidePencil, LucideTrash2, LucideX, LucideArrowLeft, Lucide
 export class TripsComponent implements OnInit {
   private tripService = inject(TripService);
   private busService = inject(BusService);
+  private citiesService = inject(CitiesService);
   private router = inject(Router);
 
   trips = signal<Trip[]>([]);
@@ -29,12 +31,20 @@ export class TripsComponent implements OnInit {
   tripToUpdate = signal<Trip | null>(null);
   submitting = signal(false);
 
-  states = [
-    'الخرطوم', 'الجزيرة', 'البحر الأحمر', 'كسلا', 'القضارف',
-    'سنار', 'النيل الأبيض', 'النيل الأزرق', 'الشمالية', 'نهر النيل',
-    'شمال كردفان', 'غرب كردفان', 'جنوب كردفان', 'شمال دارفور',
-    'غرب دارفور', 'جنوب دارفور', 'شرق دارفور', 'وسط دارفور'
-  ];
+  states = signal<string[]>([]);
+  statesWithCities = signal<State[]>([]);
+
+  fromCities = computed(() => {
+    const st = this.fromState();
+    if (!st) return [];
+    return this.statesWithCities().find(s => s.state === st)?.cities ?? [];
+  });
+
+  toCities = computed(() => {
+    const st = this.toState();
+    if (!st) return [];
+    return this.statesWithCities().find(s => s.state === st)?.cities ?? [];
+  });
 
   statuses = ['SCHEDULED', 'IN_PROGRESS', 'COMPLETED', 'CANCELLED'];
 
@@ -55,8 +65,18 @@ export class TripsComponent implements OnInit {
   formErrors = signal<Record<string, string>>({});
 
   ngOnInit() {
+    this.loadStates();
     this.loadTrips();
     this.loadBuses();
+  }
+
+  loadStates(): void {
+    this.citiesService.getStatesWithCities().subscribe({
+      next: (data) => {
+        this.statesWithCities.set(data);
+        this.states.set(data.map(s => s.state));
+      },
+    });
   }
 
   getTrips(): void {
