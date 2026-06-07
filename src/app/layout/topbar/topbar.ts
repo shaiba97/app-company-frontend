@@ -7,6 +7,7 @@ import { ThemeService } from '../../core/services/theme';
 import { AuthService } from '../../core/services/auth';
 import { WsService } from '../../core/services/ws.service';
 import { NotificationService, NotificationItem } from '../../core/services/notification.service';
+import { toArabicNumerals, formatArabicDate } from '../../pipes/arabic-number/arabic-number.util';
 
 @Component({
   selector:    'app-topbar',
@@ -60,6 +61,9 @@ export class TopbarComponent implements OnInit, OnDestroy {
   });
 
   companyName = computed(() => this.authService.companyName());
+
+  toArabic = (n: number | string) => toArabicNumerals(n);
+  fmtDate = (d: string) => formatArabicDate(d);
 
   ngOnInit() {
     this.loadNotifications();
