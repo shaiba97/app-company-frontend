@@ -1,6 +1,7 @@
-import { Component, signal, inject, OnInit } from '@angular/core';
+import { Component, signal, inject, OnInit, OnDestroy } from '@angular/core';
 import { LucideLoaderCircle, LucideAlertCircle, LucideRefreshCw, LucideMapPin, LucideCheck, LucideClock, LucideSend, LucideArrowLeft, LucideFileText, LucideLandmark, LucideBadgeCheck, LucideX, LucideBan } from '@lucide/angular';
 import { PayoutService, PayoutTrip, PayoutRequest, PayoutRecord } from '../../../core/services/payout/payout.service';
+import { WsService } from '../../../core/services/ws.service';
 import { toArabicNumerals, formatArabicDate } from '../../../pipes/arabic-number/arabic-number.util';
 
 @Component({
@@ -9,8 +10,10 @@ import { toArabicNumerals, formatArabicDate } from '../../../pipes/arabic-number
   imports: [LucideLoaderCircle, LucideAlertCircle, LucideRefreshCw, LucideMapPin, LucideCheck, LucideClock, LucideSend, LucideArrowLeft, LucideFileText, LucideLandmark, LucideBadgeCheck, LucideX, LucideBan],
   templateUrl: './payout.html',
 })
-export class PayoutComponent implements OnInit {
+export class PayoutComponent implements OnInit, OnDestroy {
   private svc = inject(PayoutService);
+  private ws = inject(WsService);
+  private wsCleanups: (() => void)[] = [];
 
   trips = signal<PayoutTrip[]>([]);
   requests = signal<PayoutRequest[]>([]);
@@ -22,7 +25,12 @@ export class PayoutComponent implements OnInit {
   requestingTrip = signal<string | null>(null);
   requestingAll = signal(false);
 
-  ngOnInit() { this.load(); }
+  ngOnInit() {
+    this.load();
+    this.wsCleanups.push(this.ws.on('payout:updated', () => this.load()));
+  }
+
+  ngOnDestroy() { this.wsCleanups.forEach(fn => fn()); }
 
   totalUnpaid = () => this.trips().reduce((sum, t) => sum + (t.paidOut ? 0 : t.unpaidAmount), 0);
 
