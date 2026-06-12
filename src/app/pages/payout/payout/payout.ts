@@ -27,6 +27,7 @@ export class PayoutComponent implements OnInit, OnDestroy {
   requestingTrip = signal<string | null>(null);
   requestingAll = signal(false);
   viewingReceipt = signal<string | null>(null);
+  receiptError = signal(false);
   account = signal<CompanyAccount | null>(null);
   editingAccount = signal(false);
   savingAccount = signal(false);
@@ -127,14 +128,18 @@ export class PayoutComponent implements OnInit, OnDestroy {
     return null;
   }
 
+  getFileUrl(path: string): string {
+    return path.startsWith('http') ? path : `${environment.apiUrl.company.replace('/api-company', '')}${path}`;
+  }
+
   viewReceipt(url: string): void {
-    this.viewingReceipt.set(
-      url.startsWith('http') ? url : `${environment.apiUrl.company.replace('/api-company', '')}${url}`
-    );
+    this.receiptError.set(false);
+    this.viewingReceipt.set(this.getFileUrl(url));
   }
 
   closeReceipt(): void {
     this.viewingReceipt.set(null);
+    this.receiptError.set(false);
   }
 
   toggleEditAccount(): void {
