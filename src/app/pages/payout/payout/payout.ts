@@ -3,6 +3,7 @@ import { LucideLoaderCircle, LucideAlertCircle, LucideRefreshCw, LucideMapPin, L
 import { PayoutService, PayoutTrip, PayoutRequest, PayoutRecord } from '../../../core/services/payout/payout.service';
 import { WsService } from '../../../core/services/ws.service';
 import { toArabicNumerals, formatArabicDate } from '../../../pipes/arabic-number/arabic-number.util';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-payout',
@@ -118,7 +119,9 @@ export class PayoutComponent implements OnInit, OnDestroy {
   }
 
   viewReceipt(url: string): void {
-    this.viewingReceipt.set(url);
+    this.viewingReceipt.set(
+      url.startsWith('http') ? url : `${environment.apiUrl.company.replace('/api-company', '')}${url}`
+    );
   }
 
   closeReceipt(): void {
