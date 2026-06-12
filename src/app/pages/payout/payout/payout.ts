@@ -1,6 +1,7 @@
 import { Component, signal, inject, OnInit, OnDestroy } from '@angular/core';
-import { LucideLoaderCircle, LucideAlertCircle, LucideRefreshCw, LucideMapPin, LucideCheck, LucideClock, LucideSend, LucideArrowLeft, LucideFileText, LucideLandmark, LucideBadgeCheck, LucideX, LucideBan, LucideEye } from '@lucide/angular';
-import { PayoutService, PayoutTrip, PayoutRequest, PayoutRecord } from '../../../core/services/payout/payout.service';
+import { FormsModule } from '@angular/forms';
+import { LucideLoaderCircle, LucideAlertCircle, LucideRefreshCw, LucideMapPin, LucideCheck, LucideClock, LucideSend, LucideArrowLeft, LucideFileText, LucideLandmark, LucideBadgeCheck, LucideX, LucideBan, LucideEye, LucideBuilding2, LucideBookUser, LucideCreditCard, LucidePencil } from '@lucide/angular';
+import { PayoutService, PayoutTrip, PayoutRequest, PayoutRecord, CompanyAccount } from '../../../core/services/payout/payout.service';
 import { WsService } from '../../../core/services/ws.service';
 import { toArabicNumerals, formatArabicDate } from '../../../pipes/arabic-number/arabic-number.util';
 import { environment } from '../../../../environments/environment';
@@ -8,7 +9,7 @@ import { environment } from '../../../../environments/environment';
 @Component({
   selector: 'app-payout',
   standalone: true,
-  imports: [LucideLoaderCircle, LucideAlertCircle, LucideRefreshCw, LucideMapPin, LucideCheck, LucideClock, LucideSend, LucideArrowLeft, LucideFileText, LucideLandmark, LucideBadgeCheck, LucideX, LucideBan, LucideEye],
+  imports: [FormsModule, LucideLoaderCircle, LucideAlertCircle, LucideRefreshCw, LucideMapPin, LucideCheck, LucideClock, LucideSend, LucideArrowLeft, LucideFileText, LucideLandmark, LucideBadgeCheck, LucideX, LucideBan, LucideEye, LucideBuilding2, LucideBookUser, LucideCreditCard, LucidePencil],
   templateUrl: './payout.html',
 })
 export class PayoutComponent implements OnInit, OnDestroy {
@@ -26,6 +27,10 @@ export class PayoutComponent implements OnInit, OnDestroy {
   requestingTrip = signal<string | null>(null);
   requestingAll = signal(false);
   viewingReceipt = signal<string | null>(null);
+  account = signal<CompanyAccount | null>(null);
+  editingAccount = signal(false);
+  savingAccount = signal(false);
+  accountForm = signal<CompanyAccount>({ accountHolderName: null, bankName: null, accountNumber: null });
 
   ngOnInit() {
     this.load();
@@ -56,6 +61,10 @@ export class PayoutComponent implements OnInit, OnDestroy {
     this.svc.getDashboardStats().subscribe({
       next: r => { this.stats.set(r.data); this.isLoading.set(false); },
       error: e => { this.error.set(e?.error?.message ?? 'حدث خطأ'); this.isLoading.set(false); },
+    });
+    this.svc.getAccount().subscribe({
+      next: r => { this.account.set(r.data); this.accountForm.set({ ...r.data }); },
+      error: () => {},
     });
   }
 
@@ -126,5 +135,21 @@ export class PayoutComponent implements OnInit, OnDestroy {
 
   closeReceipt(): void {
     this.viewingReceipt.set(null);
+  }
+
+  toggleEditAccount(): void {
+    this.editingAccount.update(v => !v);
+  }
+
+  saveAccount(): void {
+    this.savingAccount.set(true);
+    this.svc.updateAccount(this.accountForm()).subscribe({
+      next: r => {
+        this.account.set(r.data);
+        this.savingAccount.set(false);
+        this.editingAccount.set(false);
+      },
+      error: () => { this.savingAccount.set(false); },
+    });
   }
 }

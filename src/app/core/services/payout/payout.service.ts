@@ -32,6 +32,12 @@ export interface PayoutRecord {
   items: { trip: { id: string; fromCity: string; toCity: string } }[];
 }
 
+export interface CompanyAccount {
+  accountHolderName: string | null;
+  bankName: string | null;
+  accountNumber: string | null;
+}
+
 export interface PayoutDashboardStats {
   totalUnpaidAmount: number;
   totalPaidAmount: number;
@@ -61,5 +67,13 @@ export class PayoutService {
 
   getDashboardStats() {
     return this.http.get<{ data: PayoutDashboardStats }>(`${this.api}/payout/dashboard-stats`);
+  }
+
+  getAccount() {
+    return this.http.get<{ data: CompanyAccount }>(`${this.api}/payout/account`);
+  }
+
+  updateAccount(data: CompanyAccount) {
+    return this.http.put<{ data: CompanyAccount }>(`${this.api}/payout/account`, data);
   }
 }
