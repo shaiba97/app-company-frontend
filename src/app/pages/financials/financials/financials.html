@@ -11,6 +11,25 @@
     </button>
   </div>
 
+  <!-- FINANCIAL TABS -->
+  <div class="flex items-center gap-1 bg-[var(--bg-card)] rounded-2xl border border-[var(--border)] p-1 self-start">
+    <a routerLink="/financials" routerLinkActive="bg-[var(--primary)] text-white shadow-sm" [routerLinkActiveOptions]="{exact:true}"
+       class="px-4 py-2 rounded-xl text-sm font-bold transition-all"
+       [class.text-[var(--text-muted)]]="false"
+       [class.hover:bg-[var(--primary-light)]]="true"
+       [class.hover:text-[var(--primary)]]="true">
+      نظرة عامة
+    </a>
+    <a routerLink="/financials/payout" routerLinkActive="bg-[var(--primary)] text-white shadow-sm"
+       class="px-4 py-2 rounded-xl text-sm font-bold transition-all flex items-center gap-1.5"
+       [class.text-[var(--text-muted)]]="false"
+       [class.hover:bg-[var(--primary-light)]]="true"
+       [class.hover:text-[var(--primary)]]="true">
+      <svg lucideArrowLeft class="w-4 h-4"></svg>
+      المدفوعات
+    </a>
+  </div>
+
   @if (isLoading()) {
     <div class="flex flex-col items-center justify-center py-24 gap-4">
       <svg lucideLoaderCircle class="w-12 h-12 animate-spin text-[var(--primary)]"></svg>

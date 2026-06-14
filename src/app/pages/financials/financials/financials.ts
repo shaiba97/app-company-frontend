@@ -1,7 +1,8 @@
 import { Component, signal, inject, OnInit, computed } from '@angular/core';
 import { NgClass } from '@angular/common';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 import { ChartComponent } from 'ng-apexcharts';
-import { LucideTrendingUp, LucideWallet, LucideBanknote, LucideTicket, LucideClock, LucideMapPin, LucideLoaderCircle, LucideAlertCircle, LucideRefreshCw, LucideCalendar, LucideBarChart3 } from '@lucide/angular';
+import { LucideTrendingUp, LucideWallet, LucideBanknote, LucideTicket, LucideClock, LucideMapPin, LucideLoaderCircle, LucideAlertCircle, LucideRefreshCw, LucideCalendar, LucideBarChart3, LucideArrowLeft } from '@lucide/angular';
 import { FinancialsService, FinancialSummary } from '../../../core/services/financials/financials.service';
 import { ApexAxisChartSeries, ApexChart, ApexXAxis, ApexYAxis, ApexGrid, ApexTooltip, ApexDataLabels, ApexFill } from 'ng-apexcharts';
 
@@ -20,7 +21,7 @@ export type ChartOptions = {
 @Component({
   selector: 'app-financials',
   standalone: true,
-  imports: [NgClass, ChartComponent, LucideTrendingUp, LucideWallet, LucideTicket, LucideClock, LucideMapPin, LucideLoaderCircle, LucideAlertCircle, LucideRefreshCw, LucideCalendar, LucideBarChart3],
+  imports: [NgClass, RouterLink, RouterLinkActive, ChartComponent, LucideTrendingUp, LucideWallet, LucideTicket, LucideClock, LucideMapPin, LucideLoaderCircle, LucideAlertCircle, LucideRefreshCw, LucideCalendar, LucideBarChart3, LucideArrowLeft],
   templateUrl: './financials.html',
 })
 export class FinancialsComponent implements OnInit {

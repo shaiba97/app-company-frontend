@@ -26,7 +26,6 @@ export class SidebarComponent {
     { path: '/buses',      label: 'الحافلات' },
     { path: '/trips',      label: 'الرحلات' },
     { path: '/financials', label: 'المالية' },
-    { path: '/payout',     label: 'المدفوعات' },
     { path: '/profile',   label: 'الشخصية' },
   ];
 }
