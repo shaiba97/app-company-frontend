@@ -9,7 +9,13 @@ import { join } from 'node:path';
 
 const browserDistFolder = join(import.meta.dirname, '../browser');
 const app = express();
-const angularApp = new AngularNodeAppEngine();
+const angularApp = new AngularNodeAppEngine({
+  allowedHosts: [
+    'localhost',
+    'app-company-frontend.onrender.com',
+    'app-customer-frontend.onrender.com'
+  ]
+});
 
 app.use(
   express.static(browserDistFolder, {
