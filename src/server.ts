@@ -13,7 +13,8 @@ const angularApp = new AngularNodeAppEngine({
   allowedHosts: [
     'localhost',
     'app-company-frontend.onrender.com',
-    'app-customer-frontend.onrender.com'
+    'app-customer-frontend.onrender.com',
+    'app-admin-frontend.onrender.com'
   ],
   trustProxyHeaders: true
 });
