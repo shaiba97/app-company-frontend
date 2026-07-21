@@ -14,7 +14,8 @@ const angularApp = new AngularNodeAppEngine({
     'localhost',
     'app-company-frontend.onrender.com',
     'app-customer-frontend.onrender.com'
-  ]
+  ],
+  trustProxyHeaders: true
 });
 
 app.use(
