@@ -1,4 +1,5 @@
-import { Component, signal, inject, OnInit, OnDestroy } from '@angular/core';
+import { Component, signal, inject, OnInit, OnDestroy, computed } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { LucideLoaderCircle, LucideAlertCircle, LucideRefreshCw, LucideMapPin, LucideCheck, LucideClock, LucideSend, LucideArrowLeft, LucideFileText, LucideLandmark, LucideBadgeCheck, LucideX, LucideBan, LucideEye, LucideBuilding2, LucidePencil } from '@lucide/angular';
 import { PayoutService, PayoutTrip, PayoutRequest, PayoutRecord, CompanyAccount } from '../../../core/services/payout/payout.service';
@@ -28,6 +29,14 @@ export class PayoutComponent implements OnInit, OnDestroy {
   requestingAll = signal(false);
   viewingReceipt = signal<string | null>(null);
   receiptError = signal(false);
+
+  private sanitizer = inject(DomSanitizer);
+
+  receiptSafeUrl = computed(() => {
+    const url = this.viewingReceipt();
+    if (!url) return null;
+    return this.sanitizer.bypassSecurityTrustUrl(url);
+  });
   account = signal<CompanyAccount | null>(null);
   editingAccount = signal(false);
   savingAccount = signal(false);
@@ -129,7 +138,8 @@ export class PayoutComponent implements OnInit, OnDestroy {
   }
 
   getFileUrl(path: string): string {
-    return path.startsWith('http') ? path : `${environment.apiUrl.company.replace('/api-company', '')}${path}`;
+    const baseUrl = environment.apiUrl.company.replace(/\/api-company\/?$/, '');
+    return path.startsWith('http') ? path : `${baseUrl}${path.startsWith('/') ? '' : '/'}${path}`;
   }
 
   viewReceipt(url: string): void {
