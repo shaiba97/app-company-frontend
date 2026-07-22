@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, OnDestroy } from '@angular/core';
+import { Component, inject, signal, computed, OnInit, OnDestroy } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { LucideBell, LucideBellOff, LucideLoaderCircle, LucideAlertCircle, LucideRefreshCw, LucideArrowLeft, LucideCheck, LucideCheckCheck } from '@lucide/angular';
 import { NotificationsService } from '../../../core/services/notifications.service';
@@ -6,12 +6,16 @@ import { toArabicNumerals, formatArabicDate } from '../../../pipes/arabic-number
 
 @Component({
   selector: 'app-notifications',
-  standalone: true,
   imports: [RouterLink, LucideBell, LucideBellOff, LucideLoaderCircle, LucideAlertCircle, LucideRefreshCw, LucideArrowLeft, LucideCheck, LucideCheckCheck],
   templateUrl: './notifications.html',
 })
 export class NotificationsComponent implements OnInit, OnDestroy {
   protected readonly svc = inject(NotificationsService);
+
+  notifications = this.svc.notifications;
+  unreadCount = this.svc.unreadCount;
+  isLoading = computed(() => this.svc.notifications().length === 0);
+  error = signal<string>('');
 
   ngOnInit() {
     this.svc.init();
@@ -20,11 +24,6 @@ export class NotificationsComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.svc.stopPolling();
   }
-
-  get notifications() { return this.svc.notifications; }
-  get isLoading() { return this.svc.notifications().length === 0; }
-  get error() { return ''; }
-  get unreadCount() { return this.svc.unreadCount; }
 
   load() { this.svc.fetch(); }
   markRead(id: string) { this.svc.markAsRead(id); }
