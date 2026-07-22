@@ -1,8 +1,7 @@
-import { Component, signal, inject, OnInit, OnDestroy } from '@angular/core';
+import { Component, inject, OnInit, OnDestroy } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { LucideBell, LucideBellOff, LucideLoaderCircle, LucideAlertCircle, LucideRefreshCw, LucideArrowLeft, LucideCheck, LucideCheckCheck } from '@lucide/angular';
-import { NotificationService, NotificationItem } from '../../../core/services/notification.service';
-import { WsService } from '../../../core/services/ws.service';
+import { NotificationsService } from '../../../core/services/notifications.service';
 import { toArabicNumerals, formatArabicDate } from '../../../pipes/arabic-number/arabic-number.util';
 
 @Component({
@@ -12,50 +11,24 @@ import { toArabicNumerals, formatArabicDate } from '../../../pipes/arabic-number
   templateUrl: './notifications.html',
 })
 export class NotificationsComponent implements OnInit, OnDestroy {
-  private svc = inject(NotificationService);
-  private ws = inject(WsService);
-  private wsCleanups: (() => void)[] = [];
-
-  notifications = signal<NotificationItem[]>([]);
-  isLoading = signal(true);
-  error = signal('');
-  unreadCount = signal(0);
+  protected readonly svc = inject(NotificationsService);
 
   ngOnInit() {
-    this.load();
-    this.wsCleanups.push(this.ws.on('notification:new', () => this.load()));
+    this.svc.init();
   }
 
-  ngOnDestroy() { this.wsCleanups.forEach(fn => fn()); }
-
-  load() {
-    this.isLoading.set(true);
-    this.svc.findAll().subscribe({
-      next: r => {
-        this.notifications.set(r.notifications);
-        this.unreadCount.set(r.unreadCount);
-        this.isLoading.set(false);
-      },
-      error: () => {
-        this.error.set('حدث خطأ أثناء تحميل الإشعارات');
-        this.isLoading.set(false);
-      },
-    });
+  ngOnDestroy() {
+    this.svc.stopPolling();
   }
 
-  markRead(id: string) {
-    this.svc.markRead(id).subscribe(() => {
-      this.notifications.update(list =>
-        list.map(n => n.id === id ? { ...n, isRead: true } : n)
-      );
-      this.unreadCount.update(c => Math.max(0, c - 1));
-    });
-  }
+  get notifications() { return this.svc.notifications; }
+  get isLoading() { return this.svc.notifications().length === 0; }
+  get error() { return ''; }
+  get unreadCount() { return this.svc.unreadCount; }
 
-  markAllRead() {
-    this.svc.markAllRead().subscribe(() => this.load());
-  }
-
+  load() { this.svc.fetch(); }
+  markRead(id: string) { this.svc.markAsRead(id); }
+  markAllRead() { this.svc.markAllAsRead(); }
   toArabic = (n: number | string) => toArabicNumerals(n);
   fmtDate = (d: string) => formatArabicDate(d);
 }

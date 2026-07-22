@@ -1,8 +1,8 @@
 export const environment = {
   production: false,
   apiUrl:     {
-    company:  'http://localhost:3001/api',
-    customer: 'http://localhost:3002/api',
+    company:  'https://app-backend-gz2l.onrender.com/api-company',
+    customer: 'https://app-backend-gz2l.onrender.com/api-customer',
   },
-  wsUrl: 'http://localhost:3001',
+  wsUrl: 'https://app-backend-gz2l.onrender.com',
 };
