@@ -5,7 +5,7 @@
       <h1 class="text-2xl font-extrabold text-[var(--text-primary)]">مرحباً بك في {{ companyName() }}</h1>
       <p class="text-sm text-[var(--text-secondary)]">نظرة عامة على نشاط شركتك اليوم</p>
     </div>
-    <button (click)="load()" [disabled]="isLoading()" class="flex items-center gap-2 px-4 py-2.5 rounded-xl border border-[var(--border)] bg-[var(--bg-card)] text-sm font-semibold text-[var(--text-secondary)] hover:border-[var(--primary)] hover:text-[var(--primary)] transition-all duration-150 disabled:opacity-50">
+    <button (click)="load()" [disabled]="isLoading()" class="flex items-center gap-2 px-4 py-3 rounded-xl border border-[var(--border)] bg-[var(--bg-card)] text-sm font-semibold text-[var(--text-secondary)] hover:border-[var(--primary)] hover:text-[var(--primary)] transition-all duration-150 disabled:opacity-50">
       <svg lucideRefreshCw class="w-4 h-4" [class.animate-spin]="isLoading()"></svg>
       تحديث
     </button>

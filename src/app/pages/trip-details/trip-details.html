@@ -104,12 +104,12 @@
       <div class="flex items-center justify-between mb-4">
         <h2 class="text-xl font-bold text-[var(--text-primary)]">الحجوزات</h2>
         <div class="flex flex-col md:flex-row items-stretch md:items-center gap-2">
-          <button (click)="openBookingModal()" class="flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg bg-[var(--primary)] text-white hover:opacity-90 transition text-sm font-bold active:scale-95">
+          <button (click)="openBookingModal()" class="flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-lg bg-[var(--primary)] text-white hover:opacity-90 transition text-sm font-bold active:scale-95">
             <svg lucideUserPlus class="w-4 h-4"></svg>
             حجز مكتبي
           </button>
           @if (confirmedBookings().length > 0) {
-            <button (click)="downloadPassengers(trip()!.id)" class="flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg bg-emerald-50 text-emerald-600 hover:opacity-80 transition text-sm font-bold active:scale-95">
+            <button (click)="downloadPassengers(trip()!.id)" class="flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-lg bg-emerald-50 text-emerald-600 hover:opacity-80 transition text-sm font-bold active:scale-95">
               <svg lucideDownload class="w-4 h-4"></svg>
               تحميل
             </button>

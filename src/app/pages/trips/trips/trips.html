@@ -1,5 +1,5 @@
 <div class="flex flex-col gap-6" dir="rtl">
-  <div class="rounded-xl border border-[var(--border)] bg-[var(--bg-card)] shadow-[0_1px_3px_var(--shadow)] p-6 flex items-center justify-between">
+  <div class="rounded-xl border border-[var(--border)] bg-[var(--bg-card)] shadow-[0_1px_3px_var(--shadow)] p-6 flex flex-col md:flex-row md:items-center justify-between gap-3">
     <div class="flex items-center gap-4">
       <div class="w-12 h-12 rounded-xl bg-[var(--primary-light)] flex items-center justify-center">
         <svg lucideRoute class="w-6 h-6 text-[var(--primary)]"></svg>
@@ -9,7 +9,7 @@
         <p class="text-sm text-[var(--text-muted)] m-0">إدارة ومتابعة الرحلات</p>
       </div>
     </div>
-    <button (click)="openCreateModal()" class="flex items-center gap-2 px-4 py-2 rounded-lg bg-[var(--primary)] text-white hover:opacity-90 transition">
+    <button (click)="openCreateModal()" class="w-full md:w-auto flex items-center justify-center gap-2 px-4 py-3 rounded-lg bg-[var(--primary)] text-white hover:opacity-90 transition">
       <span class="text-xl">+</span><span>رحلة جديدة</span>
     </button>
   </div>
@@ -50,11 +50,11 @@
               <span class="font-bold text-[var(--text-primary)]">{{ trip.price | arabicNumber:'price' }} ج س</span>
             </div>
             <div class="flex gap-2 mt-auto pt-2 border-t border-[var(--border)]">
-              <button (click)="openUpdateModal(trip); $event.stopPropagation()" class="flex-1 flex items-center justify-center gap-1 py-2 px-3 rounded-lg bg-[var(--primary-light)] text-[var(--primary)] hover:opacity-80 transition text-sm">
+              <button (click)="openUpdateModal(trip); $event.stopPropagation()" class="flex-1 flex items-center justify-center gap-1.5 py-2.5 px-4 rounded-lg bg-[var(--primary-light)] text-[var(--primary)] hover:opacity-80 transition text-sm">
                 <svg lucidePencil class="w-3.5 h-3.5"></svg>
                 تحديث
               </button>
-              <button (click)="confirmDelete(trip.id); $event.stopPropagation()" class="flex-1 flex items-center justify-center gap-1 py-2 px-3 rounded-lg bg-red-50 text-red-600 hover:opacity-80 transition text-sm">
+              <button (click)="confirmDelete(trip.id); $event.stopPropagation()" class="flex-1 flex items-center justify-center gap-1.5 py-2.5 px-4 rounded-lg bg-red-50 text-red-600 hover:opacity-80 transition text-sm">
                 <svg lucideTrash2 class="w-3.5 h-3.5"></svg>
                 حذف
               </button>
