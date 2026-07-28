@@ -9,7 +9,7 @@
       <svg lucideUser class="w-6 h-6 text-[var(--primary)]"></svg>
     </div>
     <div>
-      <h2 class="text-base md:text-lg font-bold
+      <h2 class="text-sm md:text-lg font-bold
                  text-[var(--text-primary)] m-0">
         الملف الشخصي
       </h2>
@@ -38,7 +38,7 @@
         <input type="text" [ngModel]="editName()" (ngModelChange)="editName.set($event)"
           class="w-full px-4 py-3 rounded-lg border border-[var(--border)] bg-[var(--bg-base)] text-[var(--text-primary)] text-sm font-medium outline-none focus:border-[var(--primary)] transition">
       } @else {
-        <span class="text-base md:text-lg font-medium text-[var(--text-primary)]">{{ authService.companyName() }}</span>
+        <span class="text-sm md:text-lg font-medium text-[var(--text-primary)]">{{ authService.companyName() }}</span>
       }
     </div>
 
@@ -48,7 +48,7 @@
         <input type="email" [ngModel]="editEmail()" (ngModelChange)="editEmail.set($event)"
           class="w-full px-4 py-3 rounded-lg border border-[var(--border)] bg-[var(--bg-base)] text-[var(--text-primary)] text-sm font-medium outline-none focus:border-[var(--primary)] transition">
       } @else {
-        <span class="text-base md:text-lg font-medium text-[var(--text-primary)]">{{ authService.customerEmail() || '—' }}</span>
+        <span class="text-sm md:text-lg font-medium text-[var(--text-primary)]">{{ authService.customerEmail() || '—' }}</span>
       }
     </div>
 

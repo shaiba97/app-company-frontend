@@ -2,7 +2,7 @@
 
   <div class="flex items-center justify-between flex-wrap gap-3">
     <div class="flex flex-col gap-1">
-      <h1 class="text-xl md:text-2xl font-extrabold text-[var(--text-primary)]">مرحباً بك في {{ companyName() }}</h1>
+      <h1 class="text-lg md:text-2xl font-extrabold text-[var(--text-primary)]">مرحباً بك في {{ companyName() }}</h1>
       <p class="text-sm text-[var(--text-secondary)]">نظرة عامة على نشاط شركتك اليوم</p>
     </div>
     <button (click)="load()" [disabled]="isLoading()" class="flex items-center gap-2 px-4 py-3 rounded-xl border border-[var(--border)] bg-[var(--bg-card)] text-sm font-semibold text-[var(--text-secondary)] hover:border-[var(--primary)] hover:text-[var(--primary)] transition-all duration-150 disabled:opacity-50">

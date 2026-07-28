@@ -5,7 +5,7 @@
         <svg lucideBus class="w-6 h-6 text-[var(--primary)]"></svg>
       </div>
       <div>
-        <h2 class="text-base md:text-lg font-bold text-[var(--text-primary)] m-0">الحافلات</h2>
+        <h2 class="text-sm md:text-lg font-bold text-[var(--text-primary)] m-0">الحافلات</h2>
         <p class="text-sm text-[var(--text-muted)] m-0">إدارة الحافلات الشركة</p>
       </div>
     </div>
@@ -28,7 +28,7 @@
           <svg lucideBus class="w-16 h-16 text-[var(--primary)]"></svg>
         </div>
         <div class="p-4">
-          <h3 class="text-base md:text-lg font-bold text-[var(--text-primary)] mb-1">{{ bus.name }}</h3>
+          <h3 class="text-sm md:text-lg font-bold text-[var(--text-primary)] mb-1">{{ bus.name }}</h3>
           @if (bus.plate) {
             @if (typeof bus.plate === 'object') {
               <p class="text-xs text-[var(--text-muted)] mb-2">
@@ -67,7 +67,7 @@
   @if (buses().length === 0) {
     <div class="flex flex-col items-center justify-center py-12 text-center">
       <svg lucideBus class="w-16 h-16 mb-4 text-[var(--text-muted)]"></svg>
-      <p class="text-base md:text-lg font-medium text-[var(--text-muted)]">لا توجد حافلات</p>
+      <p class="text-sm md:text-lg font-medium text-[var(--text-muted)]">لا توجد حافلات</p>
       <p class="text-sm text-[var(--text-muted)]">أضف حافلة جديدة للبدء</p>
     </div>
   }
@@ -76,7 +76,7 @@
 @if (showModal()) {
   <div class="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-end md:items-center justify-center z-50" (click)="closeModal()">
     <div class="w-full md:max-w-lg bg-[var(--bg-card)] rounded-t-2xl md:rounded-2xl border border-[var(--border)] shadow-xl p-6 max-h-[90vh] overflow-y-auto" (click)="$event.stopPropagation()">
-      <h3 class="text-base md:text-lg font-bold text-[var(--text-primary)] mb-4">
+      <h3 class="text-sm md:text-lg font-bold text-[var(--text-primary)] mb-4">
         {{ editingBus() ? 'تعديل حافلة' : 'إضافة حافلة جديدة' }}
       </h3>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
