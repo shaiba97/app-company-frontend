@@ -21,24 +21,24 @@
         </div>
         <div class="flex-1 flex flex-col gap-4">
           <div>
-            <h1 class="text-2xl font-bold text-[var(--text-primary)]">{{ bus()!.name }}</h1>
+            <h1 class="text-xl md:text-2xl font-bold text-[var(--text-primary)]">{{ bus()!.name }}</h1>
           </div>
           <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
             <div class="flex flex-col gap-1">
               <span class="text-sm text-[var(--text-muted)]">عدد المقاعد</span>
-              <span class="text-lg font-medium text-[var(--text-primary)]">{{ bus()!.chairs | arabicNumber }}</span>
+              <span class="text-base md:text-lg font-medium text-[var(--text-primary)]">{{ bus()!.chairs | arabicNumber }}</span>
             </div>
             <div class="flex flex-col gap-1">
               <span class="text-sm text-[var(--text-muted)]">اتجاه المقاعد</span>
-              <span class="text-lg font-medium text-[var(--text-primary)]">{{ seatDirection }}</span>
+              <span class="text-base md:text-lg font-medium text-[var(--text-primary)]">{{ seatDirection }}</span>
             </div>
             <div class="flex flex-col gap-1">
               <span class="text-sm text-[var(--text-muted)]">اللوحة</span>
-              <span class="text-lg font-medium text-[var(--text-primary)]">{{ bus()!.plate.numbers | arabicNumber }}/{{ bus()!.plate.english }}/{{ bus()!.plate.arabic }}</span>
+              <span class="text-base md:text-lg font-medium text-[var(--text-primary)]">{{ bus()!.plate.numbers | arabicNumber }}/{{ bus()!.plate.english }}/{{ bus()!.plate.arabic }}</span>
             </div>
             <div class="flex flex-col gap-1">
               <span class="text-sm text-[var(--text-muted)]">تاريخ الإضافة</span>
-              <span class="text-lg font-medium text-[var(--text-primary)]">{{ formatDate(bus()!.createdAt) }}</span>
+              <span class="text-base md:text-lg font-medium text-[var(--text-primary)]">{{ formatDate(bus()!.createdAt) }}</span>
             </div>
           </div>
         </div>
@@ -46,7 +46,7 @@
     </div>
 
     <div class="flex flex-col gap-4">
-      <h2 class="text-xl font-bold text-[var(--text-primary)]">الرحلات</h2>
+      <h2 class="text-lg md:text-xl font-bold text-[var(--text-primary)]">الرحلات</h2>
       @if (trips().length > 0) {
         <div class="flex flex-col gap-3">
           @for (trip of trips(); track trip.id) {
@@ -71,7 +71,7 @@
                     <span class="text-sm text-[var(--text-muted)]">المغادرة</span>
                   </div>
                   <span class="font-medium text-[var(--text-primary)]">{{ formatDate(trip.departureDate) }}</span>
-                  <span class="text-lg font-bold text-[var(--primary)]">{{ formatTime(trip.departureTime) }}</span>
+                  <span class="text-base md:text-lg font-bold text-[var(--primary)]">{{ formatTime(trip.departureTime) }}</span>
                 </div>
                 <div class="flex flex-col gap-1 items-center">
                   <div class="flex items-center gap-2">
@@ -79,7 +79,7 @@
                     <span class="text-sm text-[var(--text-muted)]">الوصول</span>
                   </div>
                   <span class="font-medium text-[var(--text-primary)]">{{ formatDate(trip.arrivalDate) }}</span>
-                  <span class="text-lg font-bold text-green-600">{{ formatTime(trip.arrivalTime) }}</span>
+                  <span class="text-base md:text-lg font-bold text-green-600">{{ formatTime(trip.arrivalTime) }}</span>
                 </div>
                 <div class="flex flex-col gap-1 items-center">
                   <span class="text-sm text-[var(--text-muted)]">الحالة</span>
@@ -92,14 +92,14 @@
       } @else {
         <div class="flex flex-col items-center justify-center py-12 text-center rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
           <svg lucideBus class="w-12 h-12 mb-4 text-[var(--text-muted)]"></svg>
-          <p class="text-lg font-medium text-[var(--text-muted)]">لا توجد رحلات</p>
+          <p class="text-base md:text-lg font-medium text-[var(--text-muted)]">لا توجد رحلات</p>
           <p class="text-sm text-[var(--text-muted)]">لم يتم إضافة أي رحلات لهذه الحافلة بعد</p>
         </div>
       }
     </div>
   } @else {
     <div class="flex flex-col items-center justify-center py-12 text-center">
-      <p class="text-lg font-medium text-[var(--text-muted)]">لم يتم العثور على الحافلة</p>
+      <p class="text-base md:text-lg font-medium text-[var(--text-muted)]">لم يتم العثور على الحافلة</p>
       <a routerLink="/buses" class="text-[var(--primary)] hover:underline mt-2">العودة إلى الحافلات</a>
     </div>
   }

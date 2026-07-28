@@ -21,7 +21,7 @@
 
         <div class="flex-1 flex flex-col gap-4">
           <div>
-            <h1 class="text-2xl font-bold text-[var(--text-primary)]">
+            <h1 class="text-xl md:text-2xl font-bold text-[var(--text-primary)]">
               {{ trip()!.fromCity }} ({{ trip()!.fromState }}) <svg lucideArrowLeft class="w-5 h-5 inline"></svg> {{ trip()!.toCity }} ({{ trip()!.toState }})
             </h1>
           </div>
@@ -29,25 +29,25 @@
           <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
             <div class="flex flex-col gap-1">
               <span class="text-sm text-[var(--text-muted)]">من محطة</span>
-              <span class="text-lg font-medium text-[var(--text-primary)]">{{ trip()!.fromStation }}</span>
+              <span class="text-base md:text-lg font-medium text-[var(--text-primary)]">{{ trip()!.fromStation }}</span>
             </div>
             <div class="flex flex-col gap-1">
               <span class="text-sm text-[var(--text-muted)]">إلى محطة</span>
-              <span class="text-lg font-medium text-[var(--text-primary)]">{{ trip()!.toStation }}</span>
+              <span class="text-base md:text-lg font-medium text-[var(--text-primary)]">{{ trip()!.toStation }}</span>
             </div>
             <div class="flex flex-col gap-1">
               <span class="text-sm text-[var(--text-muted)]">المغادرة</span>
-              <span class="text-lg font-medium text-[var(--text-primary)]">{{ trip()!.departureDate | date:'yyyy-MM-dd' | arabicNumber }}</span>
+              <span class="text-base md:text-lg font-medium text-[var(--text-primary)]">{{ trip()!.departureDate | date:'yyyy-MM-dd' | arabicNumber }}</span>
               <span class="text-[var(--primary)] font-bold">{{ trip()!.departureTime | arabicNumber }}</span>
             </div>
             <div class="flex flex-col gap-1">
               <span class="text-sm text-[var(--text-muted)]">الوصول</span>
-              <span class="text-lg font-medium text-[var(--text-primary)]">{{ trip()!.arrivalDate | date:'yyyy-MM-dd' | arabicNumber }}</span>
+              <span class="text-base md:text-lg font-medium text-[var(--text-primary)]">{{ trip()!.arrivalDate | date:'yyyy-MM-dd' | arabicNumber }}</span>
               <span class="text-green-600 font-bold">{{ trip()!.arrivalTime | arabicNumber }}</span>
             </div>
             <div class="flex flex-col gap-1">
               <span class="text-sm text-[var(--text-muted)]">السعر</span>
-              <span class="text-lg font-bold text-[var(--text-primary)]">{{ trip()!.price | arabicNumber:'price' }} ج س</span>
+              <span class="text-base md:text-lg font-bold text-[var(--text-primary)]">{{ trip()!.price | arabicNumber:'price' }} ج س</span>
             </div>
             <div class="flex flex-col gap-1">
               <span class="text-sm text-[var(--text-muted)]">الحالة</span>
@@ -57,11 +57,11 @@
             </div>
             <div class="flex flex-col gap-1">
               <span class="text-sm text-[var(--text-muted)]">عدد الحجوزات</span>
-              <span class="text-lg font-bold text-[var(--text-primary)]">{{ confirmedBookings().length | arabicNumber }}</span>
+              <span class="text-base md:text-lg font-bold text-[var(--text-primary)]">{{ confirmedBookings().length | arabicNumber }}</span>
             </div>
             <div class="flex flex-col gap-1">
               <span class="text-sm text-[var(--text-muted)]">عدد التذاكر</span>
-              <span class="text-lg font-bold text-[var(--text-primary)]">{{ (bus()?.chairs ?? '—') | arabicNumber }}</span>
+              <span class="text-base md:text-lg font-bold text-[var(--text-primary)]">{{ (bus()?.chairs ?? '—') | arabicNumber }}</span>
             </div>
           </div>
         </div>
@@ -70,7 +70,7 @@
 
     @if (bus()) {
       <div class="rounded-xl border border-[var(--border)] bg-[var(--bg-card)] shadow-[0_1px_3px_var(--shadow)] p-6">
-        <h2 class="text-xl font-bold text-[var(--text-primary)] mb-4">الحافلة</h2>
+        <h2 class="text-lg md:text-xl font-bold text-[var(--text-primary)] mb-4">الحافلة</h2>
         <div class="flex flex-col md:flex-row gap-6">
           <div class="w-full md:w-48 h-48 rounded-xl bg-[var(--primary-light)] flex items-center justify-center">
             <svg lucideBus class="w-16 h-16 text-[var(--primary)]"></svg>
@@ -80,19 +80,19 @@
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
               <div class="flex flex-col gap-1">
                 <span class="text-sm text-[var(--text-muted)]">اسم الحافلة</span>
-                <span class="text-lg font-medium text-[var(--text-primary)]">{{ bus()!.name }}</span>
+                <span class="text-base md:text-lg font-medium text-[var(--text-primary)]">{{ bus()!.name }}</span>
               </div>
               <div class="flex flex-col gap-1">
                 <span class="text-sm text-[var(--text-muted)]">عدد المقاعد</span>
-                <span class="text-lg font-medium text-[var(--text-primary)]">{{ bus()!.chairs | arabicNumber }}</span>
+                <span class="text-base md:text-lg font-medium text-[var(--text-primary)]">{{ bus()!.chairs | arabicNumber }}</span>
               </div>
               <div class="flex flex-col gap-1">
                 <span class="text-sm text-[var(--text-muted)]">اتجاه المقاعد</span>
-                <span class="text-lg font-medium text-[var(--text-primary)]">{{ bus()!.seatStartFrom === 'RIGHT' ? 'يمين' : 'يسار' }}</span>
+                <span class="text-base md:text-lg font-medium text-[var(--text-primary)]">{{ bus()!.seatStartFrom === 'RIGHT' ? 'يمين' : 'يسار' }}</span>
               </div>
               <div class="flex flex-col gap-1">
                 <span class="text-sm text-[var(--text-muted)]">اللوحة</span>
-                <span class="text-lg font-medium text-[var(--text-primary)]">{{ bus()!.plate.numbers | arabicNumber }}/{{ bus()!.plate.english }}/{{ bus()!.plate.arabic }}</span>
+                <span class="text-base md:text-lg font-medium text-[var(--text-primary)]">{{ bus()!.plate.numbers | arabicNumber }}/{{ bus()!.plate.english }}/{{ bus()!.plate.arabic }}</span>
               </div>
             </div>
           </div>
@@ -102,7 +102,7 @@
 
     <div class="rounded-xl border border-[var(--border)] bg-[var(--bg-card)] shadow-[0_1px_3px_var(--shadow)] p-6">
       <div class="flex items-center justify-between mb-4">
-        <h2 class="text-xl font-bold text-[var(--text-primary)]">الحجوزات</h2>
+        <h2 class="text-lg md:text-xl font-bold text-[var(--text-primary)]">الحجوزات</h2>
         <div class="flex flex-col md:flex-row items-stretch md:items-center gap-2">
           <button (click)="openBookingModal()" class="flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-lg bg-[var(--primary)] text-white hover:opacity-90 transition text-sm font-bold active:scale-95">
             <svg lucideUserPlus class="w-4 h-4"></svg>
@@ -177,7 +177,7 @@
 
   @if (!loading() && !trip()) {
     <div class="flex flex-col items-center justify-center py-12 text-center">
-      <p class="text-lg font-medium text-[var(--text-muted)]">لم يتم العثور على الرحلة</p>
+      <p class="text-base md:text-lg font-medium text-[var(--text-muted)]">لم يتم العثور على الرحلة</p>
       <button (click)="goBack()" class="text-[var(--primary)] hover:underline mt-2">العودة إلى الرحلات</button>
     </div>
   }
