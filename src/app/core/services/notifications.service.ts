@@ -27,8 +27,11 @@ export class NotificationsService {
 
   #pollTimer: ReturnType<typeof setInterval> | null = null;
   #cleanup: (() => void) | null = null;
+  #initialized = false;
 
   async init(): Promise<void> {
+    if (this.#initialized) return;
+    this.#initialized = true;
     await this.fetch();
     this.#listen();
     this.#startPolling();

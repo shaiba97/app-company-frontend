@@ -1,9 +1,9 @@
-import { Component, input, output, inject, signal, OnInit } from '@angular/core';
+import { Component, input, output, inject, computed } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { LucideLayoutDashboard, LucideBus, LucideRoute, LucideWallet, LucideUser, LucideSun, LucideMoon, LucideLogOut, LucideX, LucideBell } from '@lucide/angular';
 import { ThemeService } from '../../core/services/theme';
 import { AuthService } from '../../core/services/auth';
-import { NotificationService } from '../../core/services/notification.service';
+import { NotificationsService } from '../../core/services/notifications.service';
 
 interface NavItem {
   path:  string;
@@ -16,14 +16,14 @@ interface NavItem {
   imports:     [RouterLink, RouterLinkActive, LucideLayoutDashboard, LucideBus, LucideRoute, LucideWallet, LucideUser, LucideSun, LucideMoon, LucideLogOut, LucideX, LucideBell],
   templateUrl: './sidebar.html',
 })
-export class SidebarComponent implements OnInit {
+export class SidebarComponent {
   isOpen       = input<boolean>(false);
   closeSidebar = output<void>();
   themeService = inject(ThemeService);
   authService  = inject(AuthService);
-  private notificationSvc = inject(NotificationService);
+  protected readonly notifSvc = inject(NotificationsService);
 
-  unreadCount = signal(0);
+  unreadCount = computed(() => this.notifSvc.unreadCount());
 
   navItems: NavItem[] = [
     { path: '/dashboard',  label: 'الرئيسية' },
@@ -33,10 +33,4 @@ export class SidebarComponent implements OnInit {
     { path: '/notifications', label: 'الإشعارات' },
     { path: '/profile',   label: 'الشخصية' },
   ];
-
-  ngOnInit() {
-    this.notificationSvc.getUnreadCount().subscribe({
-      next: r => this.unreadCount.set(r.count),
-    });
-  }
 }

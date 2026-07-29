@@ -1,8 +1,8 @@
-import { Component, signal, inject, OnInit } from '@angular/core';
+import { Component, signal, inject, computed, OnInit } from '@angular/core';
 import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
 import { SidebarComponent } from '../sidebar/sidebar';
 import { AuthService } from '../../core/services/auth';
-import { NotificationService } from '../../core/services/notification.service';
+import { NotificationsService } from '../../core/services/notifications.service';
 import { LucideLayoutDashboard, LucideBus, LucideRoute, LucideWallet, LucideUser, LucideBell } from '@lucide/angular';
 import { ThemeService } from '../../core/services/theme';
 import { toArabicNumerals } from '../../pipes/arabic-number/arabic-number.util';
@@ -23,9 +23,9 @@ export class LayoutComponent implements OnInit {
   toggleSidebar = () => this.sidebarOpen.update(v => !v);
   authService = inject(AuthService);
   themeService = inject(ThemeService);
-  private notificationSvc = inject(NotificationService);
+  protected readonly notifSvc = inject(NotificationsService);
 
-  unreadCount = signal<number>(0);
+  unreadCount = computed(() => this.notifSvc.unreadCount());
 
   navItems: NavItem[] = [
     { path: '/dashboard',  label: 'الرئيسية', icon: 'layout-dashboard' },
@@ -39,12 +39,6 @@ export class LayoutComponent implements OnInit {
   toArabic = (n: number | string) => toArabicNumerals(n);
 
   ngOnInit() {
-    this.loadUnreadCount();
-  }
-
-  loadUnreadCount() {
-    this.notificationSvc.getUnreadCount().subscribe({
-      next: r => this.unreadCount.set(r.count),
-    });
+    this.notifSvc.init();
   }
 }
