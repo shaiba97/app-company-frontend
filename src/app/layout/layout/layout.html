@@ -5,7 +5,7 @@
     <!-- MAIN AREA -->
     <div class="flex-1 flex flex-col overflow-hidden min-w-0 z-40">
 
-      <main class="flex-1 overflow-y-auto p-6 max-md:pb-16 bg-[var(--bg-base)]">
+      <main class="flex-1 overflow-y-auto py-2 lg:py-6 max-md:pb-16 bg-[var(--bg-base)] pt-[var(--safe-top)]">
         <router-outlet></router-outlet>
       </main>
 
@@ -20,7 +20,7 @@
   </div>
 
   <!-- MOBILE BOTTOM NAV (hidden on desktop) -->
-  <nav class="max-md:flex md:hidden fixed bottom-0 left-0 right-0 z-50 bg-[var(--bg-card)] border-t border-[var(--border)] items-center justify-around px-2 py-1 pb-[env(safe-area-inset-bottom,0px)]">
+  <nav class="max-md:flex md:hidden fixed bottom-0 left-0 right-0 z-50 h-[64px] bg-[var(--bg-card)]/90 backdrop-blur-xl border-t border-[var(--border)] items-center justify-around px-2 pt-1 pb-[var(--safe-bottom)]">
     @for (item of navItems; track item.path) {
       <a [routerLink]="item.path"
          routerLinkActive="text-[var(--primary)]"
@@ -28,20 +28,20 @@
          class="flex flex-col items-center gap-0.5 py-1.5 px-3 rounded-xl transition-all duration-150 min-w-0 active:scale-95 relative"
          [class.text-[var(--text-muted)]]="!rla.isActive"
          [class.text-[var(--primary)]]="rla.isActive">
-        @switch (item.icon) {
-          @case ('layout-dashboard') { <svg lucideLayoutDashboard class="w-5 h-5"></svg> }
-          @case ('bus') { <svg lucideBus class="w-5 h-5"></svg> }
-          @case ('route') { <svg lucideRoute class="w-5 h-5"></svg> }
-          @case ('wallet') { <svg lucideWallet class="w-5 h-5"></svg> }
-          @case ('bell') { <svg lucideBell class="w-5 h-5"></svg> }
-          @case ('user') { <svg lucideUser class="w-5 h-5"></svg> }
-        }
-        @if (item.icon === 'bell' && unreadCount() > 0) {
-          <span class="absolute -top-0.5 -right-0.5 min-w-[14px] h-3.5 px-1 bg-red-500 text-white text-[8px] font-bold rounded-full flex items-center justify-center">
-            {{ toArabic(unreadCount()) }}
-          </span>
-        }
-        <span class="text-[9px] font-semibold whitespace-nowrap">{{ item.label }}</span>
+          @switch (item.icon) {
+            @case ('layout-dashboard') { <svg lucideLayoutDashboard class="w-6 h-6"></svg> }
+            @case ('bus') { <svg lucideBus class="w-6 h-6"></svg> }
+            @case ('route') { <svg lucideRoute class="w-6 h-6"></svg> }
+            @case ('wallet') { <svg lucideWallet class="w-6 h-6"></svg> }
+            @case ('bell') { <svg lucideBell class="w-6 h-6"></svg> }
+            @case ('user') { <svg lucideUser class="w-6 h-6"></svg> }
+          }
+          @if (item.icon === 'bell' && unreadCount() > 0) {
+            <span class="absolute -top-0.5 -right-0.5 min-w-[14px] h-3.5 px-1 bg-red-500 text-white text-[8px] font-bold rounded-full flex items-center justify-center">
+              {{ toArabic(unreadCount()) }}
+            </span>
+          }
+          <span class="text-[10px] font-semibold whitespace-nowrap">{{ item.label }}</span>
       </a>
     }
   </nav>
