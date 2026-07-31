@@ -12,6 +12,7 @@ export interface PayoutTrip {
   unpaidAmount: number;
   paidOut: boolean;
   hasPendingRequest: boolean;
+  canRequest: boolean;
 }
 
 export interface PayoutRequest {

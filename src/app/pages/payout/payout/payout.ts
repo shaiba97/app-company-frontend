@@ -51,7 +51,7 @@ export class PayoutComponent implements OnInit, OnDestroy {
 
   totalUnpaid = () => this.trips().reduce((sum, t) => sum + (t.paidOut ? 0 : t.unpaidAmount), 0);
 
-  allDisabled = () => this.trips().length === 0 || this.trips().every(t => t.paidOut || t.hasPendingRequest);
+  allDisabled = () => !this.trips().some(t => t.canRequest);
 
   load() {
     this.isLoading.set(true);

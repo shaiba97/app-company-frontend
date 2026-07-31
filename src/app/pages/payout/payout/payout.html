@@ -120,6 +120,13 @@
         </button>
       </div>
 
+      @if (trips().some(t => !t.paidOut && !t.hasPendingRequest && !t.canRequest)) {
+        <div class="mx-4 mt-4 px-4 py-2.5 rounded-xl bg-sky-50 border border-sky-200 text-xs font-medium text-sky-700 flex items-center gap-2">
+          <svg lucideClock class="w-3.5 h-3.5 flex-shrink-0"></svg>
+          يمكن طلب الصرف بعد مرور ٣٠ دقيقة على موعد انطلاق كل رحلة
+        </div>
+      }
+
       <!-- Trips list -->
       @if (trips().length === 0) {
         <div class="flex flex-col items-center justify-center py-12 gap-3 text-[var(--text-muted)]">
@@ -173,6 +180,11 @@
                     <button disabled class="flex items-center gap-1.5 px-4 h-[44px] rounded-xl bg-amber-50 text-amber-600 text-xs font-semibold border border-amber-200 opacity-70 cursor-not-allowed">
                       <svg lucideClock class="w-3.5 h-3.5"></svg>
                       قيد الانتظار...
+                    </button>
+                  } @else if (!trip.canRequest) {
+                    <button disabled class="flex items-center gap-1.5 px-4 h-[44px] rounded-xl bg-gray-100 text-gray-400 text-xs font-semibold border border-gray-200 opacity-80 cursor-not-allowed" title="متاح بعد مرور ٣٠ دقيقة من موعد الانطلاق">
+                      <svg lucideClock class="w-3.5 h-3.5"></svg>
+                      متاح بعد ٣٠ دقيقة
                     </button>
                   } @else {
                     <button
