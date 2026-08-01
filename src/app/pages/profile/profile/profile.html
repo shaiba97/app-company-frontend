@@ -83,8 +83,8 @@
   </button>
 
   @if (showConfirmDelete()) {
-    <div class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-end md:items-center justify-center p-0 md:p-4" (click)="cancelDelete()">
-      <div class="bg-[var(--bg-card)] rounded-t-2xl md:rounded-2xl p-6 max-w-sm w-full flex flex-col gap-4 shadow-xl" (click)="$event.stopPropagation()">
+    <div class="fixed inset-0 z-[60] bg-black/50 backdrop-blur-sm flex items-end md:items-center justify-center p-0 md:p-4" (click)="cancelDelete()">
+      <div class="bg-[var(--bg-card)] rounded-t-2xl md:rounded-2xl p-6 max-w-sm w-full flex flex-col gap-4 shadow-xl max-md:mb-[calc(64px+var(--safe-bottom))]" (click)="$event.stopPropagation()">
         <div class="flex items-center gap-3">
           <div class="w-10 h-10 rounded-full bg-red-50 flex items-center justify-center flex-shrink-0">
             <svg lucideAlertCircle class="w-5 h-5 text-red-500"></svg>
