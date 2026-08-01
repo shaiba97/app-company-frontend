@@ -1,47 +1,47 @@
-<div dir="rtl" class="p-4 md:p-6 flex flex-col gap-6">
+<section dir="rtl" aria-labelledby="fin-title" class="p-4 md:p-6 flex flex-col gap-6">
 
-  <div class="flex items-center justify-between flex-wrap gap-3">
+  <header class="flex items-center justify-between flex-wrap gap-3">
     <div class="flex flex-col gap-1">
-      <h1 class="text-lg md:text-2xl font-extrabold text-[var(--text-primary)]">الإدارة المالية</h1>
+      <h1 id="fin-title" class="text-lg md:text-2xl font-extrabold text-[var(--text-primary)]">الإدارة المالية</h1>
       <p class="text-sm text-[var(--text-secondary)]">نظرة شاملة على إيرادات شركتك وأرباحها</p>
     </div>
-    <button (click)="load()" [disabled]="isLoading()" class="flex items-center gap-2 px-4 py-3 rounded-xl border border-[var(--border)] bg-[var(--bg-card)] text-sm font-semibold text-[var(--text-secondary)] hover:border-[var(--primary)] hover:text-[var(--primary)] transition-all duration-150 disabled:opacity-50">
-      <svg lucideRefreshCw class="w-4 h-4" [ngClass]="isLoading() ? ['animate-spin'] : []"></svg>
+    <button type="button" (click)="load()" [disabled]="isLoading()" class="flex items-center gap-2 px-4 py-3 rounded-xl border border-[var(--border)] bg-[var(--bg-card)] text-sm font-semibold text-[var(--text-secondary)] hover:border-[var(--primary)] hover:text-[var(--primary)] transition-all duration-150 disabled:opacity-50">
+      <svg lucideRefreshCw class="w-4 h-4" [ngClass]="isLoading() ? ['animate-spin'] : []" aria-hidden="true"></svg>
       تحديث
     </button>
-  </div>
+  </header>
 
   <!-- TABS -->
-  <div class="flex items-center gap-1 border-b border-[var(--border)] overflow-x-auto scrollbar-hide">
+  <nav aria-label="أقسام الإدارة المالية" class="flex items-center gap-1 border-b border-[var(--border)] overflow-x-auto scrollbar-hide">
     @for (tab of tabs; track tab.id) {
-      <button (click)="switchTab(tab.id)" class="flex items-center gap-2 px-4 py-3 text-[14px] font-bold border-b-2 transition-all duration-150 relative whitespace-nowrap"
+      <button type="button" (click)="switchTab(tab.id)" class="flex items-center gap-2 px-4 py-3 text-[14px] font-bold border-b-2 transition-all duration-150 relative whitespace-nowrap"
         [class.border-[var(--primary)]]="activeTab()===tab.id"
         [class.text-[var(--text-primary)]]="activeTab()===tab.id"
         [class.border-transparent]="activeTab()!==tab.id"
         [class.text-[var(--text-muted)]]="activeTab()!==tab.id"
         [class.hover:text-[var(--text-primary)]]="activeTab()!==tab.id">
         @switch (tab.icon) {
-          @case ('activity') { <svg lucideActivity class="w-3.5 h-3.5"></svg> }
-          @case ('bar-chart') { <svg lucideBarChart3 class="w-3.5 h-3.5"></svg> }
-          @case ('circle-dollar-sign') { <svg lucideCircleDollarSign class="w-3.5 h-3.5"></svg> }
+          @case ('activity') { <svg lucideActivity class="w-3.5 h-3.5" aria-hidden="true"></svg> }
+          @case ('bar-chart') { <svg lucideBarChart3 class="w-3.5 h-3.5" aria-hidden="true"></svg> }
+          @case ('circle-dollar-sign') { <svg lucideCircleDollarSign class="w-3.5 h-3.5" aria-hidden="true"></svg> }
         }
         {{ tab.label }}
       </button>
     }
-  </div>
+  </nav>
 
   @if (isLoading()) {
     <div class="flex flex-col items-center justify-center py-24 gap-4">
-      <svg lucideLoaderCircle class="w-12 h-12 animate-spin text-[var(--primary)]"></svg>
+      <svg lucideLoaderCircle class="w-12 h-12 animate-spin text-[var(--primary)]" aria-hidden="true"></svg>
       <p class="text-sm font-medium text-[var(--text-muted)]">جاري تحميل البيانات المالية...</p>
     </div>
   }
 
   @if (!isLoading() && error()) {
     <div class="flex flex-col items-center justify-center py-24 gap-4">
-      <div class="w-16 h-16 rounded-full bg-red-50 flex items-center justify-center"><svg lucideAlertCircle class="w-8 h-8 text-red-400"></svg></div>
+      <div class="w-16 h-16 rounded-full bg-red-50 flex items-center justify-center"><svg lucideAlertCircle class="w-8 h-8 text-red-400" aria-hidden="true"></svg></div>
       <p class="text-base font-semibold text-[var(--text-primary)]">{{ error() }}</p>
-      <button (click)="load()" class="px-6 py-3 rounded-xl bg-[var(--primary)] text-white font-semibold text-sm hover:bg-[var(--primary-hover)] transition-all">حاول مجدداً</button>
+      <button (click)="load()" class="px-6 py-3 rounded-xl bg-[var(--primary)] text-white font-semibold text-sm hover:bg-[var(--primary-hover)] transition-all" type="button">حاول مجدداً</button>
     </div>
   }
 
@@ -52,12 +52,12 @@
         <div class="flex flex-col gap-3 p-4 rounded-2xl border bg-[var(--bg-card)] hover:shadow-md transition-all duration-200">
           <div class="w-10 h-10 rounded-xl flex items-center justify-center"
             [ngClass]="card.color === 'primary' ? 'bg-[var(--primary-light)]' : card.color === 'emerald' ? 'bg-emerald-50' : card.color === 'amber' ? 'bg-amber-50' : card.color === 'blue' ? 'bg-blue-50' : card.color === 'violet' ? 'bg-violet-50' : 'bg-orange-50'">
-            @if (card.icon === 'trending-up') { <svg lucideTrendingUp class="w-5 h-5" [ngClass]="card.color === 'primary' ? 'text-[var(--primary)]' : card.color + '-600 dark:text-' + card.color + '-300'"></svg> }
-            @if (card.icon === 'calendar') { <svg lucideCalendar class="w-5 h-5" [ngClass]="card.color === 'primary' ? 'text-[var(--primary)]' : card.color + '-600 dark:text-' + card.color + '-300'"></svg> }
-            @if (card.icon === 'ticket') { <svg lucideTicket class="w-5 h-5" [ngClass]="card.color === 'primary' ? 'text-[var(--primary)]' : card.color + '-600 dark:text-' + card.color + '-300'"></svg> }
-            @if (card.icon === 'clock') { <svg lucideClock class="w-5 h-5" [ngClass]="card.color === 'primary' ? 'text-[var(--primary)]' : card.color + '-600 dark:text-' + card.color + '-300'"></svg> }
-            @if (card.icon === 'wallet') { <svg lucideWallet class="w-5 h-5" [ngClass]="card.color === 'primary' ? 'text-[var(--primary)]' : card.color + '-600 dark:text-' + card.color + '-300'"></svg> }
-            @if (card.icon === 'banknote') { <svg lucideBanknote class="w-5 h-5" [ngClass]="card.color === 'primary' ? 'text-[var(--primary)]' : card.color + '-600 dark:text-' + card.color + '-300'"></svg> }
+            @if (card.icon === 'trending-up') { <svg lucideTrendingUp class="w-5 h-5" [ngClass]="card.color === 'primary' ? 'text-[var(--primary)]' : card.color + '-600 dark:text-' + card.color + '-300'" aria-hidden="true"></svg> }
+            @if (card.icon === 'calendar') { <svg lucideCalendar class="w-5 h-5" [ngClass]="card.color === 'primary' ? 'text-[var(--primary)]' : card.color + '-600 dark:text-' + card.color + '-300'" aria-hidden="true"></svg> }
+            @if (card.icon === 'ticket') { <svg lucideTicket class="w-5 h-5" [ngClass]="card.color === 'primary' ? 'text-[var(--primary)]' : card.color + '-600 dark:text-' + card.color + '-300'" aria-hidden="true"></svg> }
+            @if (card.icon === 'clock') { <svg lucideClock class="w-5 h-5" [ngClass]="card.color === 'primary' ? 'text-[var(--primary)]' : card.color + '-600 dark:text-' + card.color + '-300'" aria-hidden="true"></svg> }
+            @if (card.icon === 'wallet') { <svg lucideWallet class="w-5 h-5" [ngClass]="card.color === 'primary' ? 'text-[var(--primary)]' : card.color + '-600 dark:text-' + card.color + '-300'" aria-hidden="true"></svg> }
+            @if (card.icon === 'banknote') { <svg lucideBanknote class="w-5 h-5" [ngClass]="card.color === 'primary' ? 'text-[var(--primary)]' : card.color + '-600 dark:text-' + card.color + '-300'" aria-hidden="true"></svg> }
           </div>
           <div class="flex flex-col gap-0.5">
             <span class="text-[11px] font-medium text-[var(--text-muted)] leading-tight">{{ card.label }}</span>
@@ -74,20 +74,20 @@
     @let s = summary()!;
 
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
-      <div class="lg:col-span-2 bg-[var(--bg-card)] rounded-2xl border border-[var(--border)] p-5 flex flex-col gap-4">
+      <section class="lg:col-span-2 bg-[var(--bg-card)] rounded-2xl border border-[var(--border)] p-5 flex flex-col gap-4">
         <div class="flex items-center justify-between">
-          <h2 class="text-base font-bold text-[var(--text-primary)] flex items-center gap-2"><svg lucideTrendingUp class="w-4 h-4 text-[var(--primary)]"></svg>الإيرادات اليومية</h2>
+          <h2 class="text-base font-bold text-[var(--text-primary)] flex items-center gap-2 m-0"><svg lucideTrendingUp class="w-4 h-4 text-[var(--primary)]" aria-hidden="true"></svg>الإيرادات اليومية</h2>
           <span class="text-xs font-medium text-[var(--text-muted)] px-2.5 py-1 rounded-full bg-[var(--bg-base)] border border-[var(--border)]">آخر ٣٠ يوماً</span>
         </div>
         @if (summary()?.dailyRevenue?.length) {
           <apx-chart [series]="chartOptions().series" [chart]="chartOptions().chart" [xaxis]="chartOptions().xaxis" [yaxis]="chartOptions().yaxis" [grid]="chartOptions().grid" [tooltip]="chartOptions().tooltip" [dataLabels]="chartOptions().dataLabels" [fill]="chartOptions().fill" [colors]="chartOptions().colors" class="w-full"></apx-chart>
         } @else {
-          <div class="flex flex-col items-center justify-center h-44 gap-2 text-[var(--text-muted)]"><svg lucideTrendingUp class="w-8 h-8 opacity-30"></svg><p class="text-sm">لا توجد بيانات بعد</p></div>
+          <div class="flex flex-col items-center justify-center h-44 gap-2 text-[var(--text-muted)]"><svg lucideTrendingUp class="w-8 h-8 opacity-30" aria-hidden="true"></svg><p class="text-sm">لا توجد بيانات بعد</p></div>
         }
-      </div>
+      </section>
 
-      <div class="bg-[var(--bg-card)] rounded-2xl border border-[var(--border)] p-5 flex flex-col gap-4">
-        <h2 class="text-base font-bold text-[var(--text-primary)] flex items-center gap-2"><svg lucideMapPin class="w-4 h-4 text-[var(--primary)]"></svg>أعلى الرحلات إيراداً</h2>
+      <section class="bg-[var(--bg-card)] rounded-2xl border border-[var(--border)] p-5 flex flex-col gap-4">
+        <h2 class="text-base font-bold text-[var(--text-primary)] flex items-center gap-2 m-0"><svg lucideMapPin class="w-4 h-4 text-[var(--primary)]" aria-hidden="true"></svg>أعلى الرحلات إيراداً</h2>
         @if (s.topTrips.length > 0) {
           <div class="flex flex-col gap-3">
             @for (trip of s.topTrips; track trip.tripId; let i = $index) {
@@ -106,14 +106,14 @@
             }
           </div>
         } @else {
-          <div class="flex-1 flex flex-col items-center justify-center gap-2 py-8 text-[var(--text-muted)]"><svg lucideMapPin class="w-8 h-8 opacity-30"></svg><p class="text-xs text-center">لا توجد رحلات مكتملة بعد</p></div>
+          <div class="flex-1 flex flex-col items-center justify-center gap-2 py-8 text-[var(--text-muted)]"><svg lucideMapPin class="w-8 h-8 opacity-30" aria-hidden="true"></svg><p class="text-xs text-center">لا توجد رحلات مكتملة بعد</p></div>
         }
-      </div>
+      </section>
     </div>
 
-    <div class="bg-[var(--bg-card)] rounded-2xl border border-[var(--border)] overflow-hidden">
+    <section class="bg-[var(--bg-card)] rounded-2xl border border-[var(--border)] overflow-hidden">
       <div class="flex items-center justify-between px-5 py-4 border-b border-[var(--border)]">
-        <h2 class="text-base font-bold text-[var(--text-primary)] flex items-center gap-2"><svg lucideTicket class="w-4 h-4 text-[var(--primary)]"></svg>آخر المدفوعات</h2>
+        <h2 class="text-base font-bold text-[var(--text-primary)] flex items-center gap-2 m-0"><svg lucideTicket class="w-4 h-4 text-[var(--primary)]" aria-hidden="true"></svg>آخر المدفوعات</h2>
         <span class="text-xs font-medium text-[var(--text-muted)]">آخر {{ toArabic(s.recentPayments.length) }} عملية</span>
       </div>
       @if (s.recentPayments.length > 0) {
@@ -132,7 +132,7 @@
                 <tr class="border-b border-[var(--border)] hover:bg-[var(--bg-base)] transition-colors duration-100" [ngClass]="i % 2 === 0 ? [] : ['bg-[var(--bg-base)]/40']">
                   <td class="px-5 py-3.5">
                     <div class="flex items-center gap-2">
-                      <div class="w-7 h-7 rounded-lg bg-[var(--primary-light)] flex items-center justify-center flex-shrink-0"><svg lucideMapPin class="w-3.5 h-3.5 text-[var(--primary)]"></svg></div>
+                      <div class="w-7 h-7 rounded-lg bg-[var(--primary-light)] flex items-center justify-center flex-shrink-0"><svg lucideMapPin class="w-3.5 h-3.5 text-[var(--primary)]" aria-hidden="true"></svg></div>
                       <span class="text-sm font-semibold text-[var(--text-primary)]">{{ p.from ?? '—' }} ← {{ p.to ?? '—' }}</span>
                     </div>
                   </td>
@@ -161,18 +161,18 @@
           }
         </div>
       } @else {
-        <div class="flex flex-col items-center justify-center py-16 gap-3 text-[var(--text-muted)]"><svg lucideTicket class="w-10 h-10 opacity-30"></svg><p class="text-sm text-center">لا توجد مدفوعات مسجلة بعد.<br>ستظهر هنا عند بدء حجوزات العملاء.</p></div>
+        <div class="flex flex-col items-center justify-center py-16 gap-3 text-[var(--text-muted)]"><svg lucideTicket class="w-10 h-10 opacity-30" aria-hidden="true"></svg><p class="text-sm text-center">لا توجد مدفوعات مسجلة بعد.<br>ستظهر هنا عند بدء حجوزات العملاء.</p></div>
       }
-    </div>
+    </section>
     }
 
     @if (activeTab() === 'performance') {
-    <div class="bg-[var(--bg-card)] rounded-2xl border border-[var(--border)] overflow-hidden">
+    <section class="bg-[var(--bg-card)] rounded-2xl border border-[var(--border)] overflow-hidden">
       <div class="px-5 py-3.5 border-b border-[var(--border)] flex items-center justify-between flex-wrap gap-3">
-        <h2 class="text-base font-bold text-[var(--text-primary)] flex items-center gap-2"><svg lucideBarChart3 class="w-4 h-4 text-[var(--primary)]"></svg>الأداء المالي</h2>
+        <h2 class="text-base font-bold text-[var(--text-primary)] flex items-center gap-2 m-0"><svg lucideBarChart3 class="w-4 h-4 text-[var(--primary)]" aria-hidden="true"></svg>الأداء المالي</h2>
         <div class="flex items-center gap-1 bg-[var(--bg-base)] rounded-xl p-0.5 border border-[var(--border)] overflow-x-auto">
           @for (p of perfPeriods; track p.id) {
-            <button (click)="setPerfPeriod(p.id)" class="px-3 py-1.5 rounded-lg text-xs font-bold transition-all whitespace-nowrap" [class.bg-white]="perfPeriod()===p.id" [class.shadow-sm]="perfPeriod()===p.id" [class.text-[var(--text-primary)]]="perfPeriod()===p.id" [class.text-[var(--text-muted)]]="perfPeriod()!==p.id" [class.hover:text-[var(--text-primary)]]="perfPeriod()!==p.id">{{ p.label }}</button>
+            <button (click)="setPerfPeriod(p.id)" class="px-3 py-1.5 rounded-lg text-xs font-bold transition-all whitespace-nowrap" [class.bg-white]="perfPeriod()===p.id" [class.shadow-sm]="perfPeriod()===p.id" [class.text-[var(--text-primary)]]="perfPeriod()===p.id" [class.text-[var(--text-muted)]]="perfPeriod()!==p.id" [class.hover:text-[var(--text-primary)]]="perfPeriod()!==p.id" type="button">{{ p.label }}</button>
           }
         </div>
       </div>
@@ -194,11 +194,11 @@
           </table>
         </div>
       }
-    </div>
+    </section>
     }
   }
 
   @if (activeTab() === 'payout') {
     <app-payout></app-payout>
   }
-</div>
+</section>

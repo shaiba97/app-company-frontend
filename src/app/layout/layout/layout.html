@@ -9,7 +9,7 @@
         <router-outlet></router-outlet>
 
         <!-- MOBILE BOTTOM NAV (hidden on desktop) -->
-        <nav class="max-md:flex md:hidden sticky bottom-0 z-50 h-[64px] w-full max-w-full box-border overflow-hidden bg-[var(--bg-card)]/90 backdrop-blur-xl border-t border-[var(--border)] items-center px-1 pt-1 pb-[var(--safe-bottom)]">
+        <nav aria-label="التنقل الرئيسي" class="max-md:flex md:hidden sticky bottom-0 z-50 h-[64px] w-full max-w-full box-border overflow-hidden bg-[var(--bg-card)]/90 backdrop-blur-xl border-t border-[var(--border)] items-center px-1 pt-1 pb-[var(--safe-bottom)]">
           @for (item of navItems; track item.path) {
             <a [routerLink]="item.path"
                routerLinkActive="text-[var(--primary)]"
@@ -19,12 +19,12 @@
                [class.text-[var(--primary)]]="rla.isActive">
                 <span class="flex-shrink-0">
                   @switch (item.icon) {
-                    @case ('layout-dashboard') { <svg lucideLayoutDashboard class="w-6 h-6"></svg> }
-                    @case ('bus') { <svg lucideBus class="w-6 h-6"></svg> }
-                    @case ('route') { <svg lucideRoute class="w-6 h-6"></svg> }
-                    @case ('wallet') { <svg lucideWallet class="w-6 h-6"></svg> }
-                    @case ('bell') { <svg lucideBell class="w-6 h-6"></svg> }
-                    @case ('user') { <svg lucideUser class="w-6 h-6"></svg> }
+                    @case ('layout-dashboard') { <svg lucideLayoutDashboard class="w-6 h-6" aria-hidden="true"></svg> }
+                    @case ('bus') { <svg lucideBus class="w-6 h-6" aria-hidden="true"></svg> }
+                    @case ('route') { <svg lucideRoute class="w-6 h-6" aria-hidden="true"></svg> }
+                    @case ('wallet') { <svg lucideWallet class="w-6 h-6" aria-hidden="true"></svg> }
+                    @case ('bell') { <svg lucideBell class="w-6 h-6" aria-hidden="true"></svg> }
+                    @case ('user') { <svg lucideUser class="w-6 h-6" aria-hidden="true"></svg> }
                   }
                 </span>
                 @if (item.icon === 'bell' && unreadCount() > 0) {
@@ -45,7 +45,7 @@
     <app-sidebar class="max-md:hidden" [isOpen]="sidebarOpen()" (closeSidebar)="sidebarOpen.set(false)"></app-sidebar>
 
     @if (sidebarOpen()) {
-      <div class="fixed inset-0 bg-black/40 backdrop-blur-sm z-40 md:hidden" (click)="sidebarOpen.set(false)"></div>
+      <button type="button" aria-label="إغلاق القائمة" class="fixed inset-0 bg-black/40 backdrop-blur-sm z-40 md:hidden" (click)="sidebarOpen.set(false)"></button>
     }
   </div>
 

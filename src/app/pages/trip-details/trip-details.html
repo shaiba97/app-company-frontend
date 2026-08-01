@@ -1,4 +1,4 @@
-<div class="p-4 md:p-6 flex flex-col gap-6" dir="rtl">
+<section class="p-4 md:p-6 flex flex-col gap-6" dir="rtl" aria-labelledby="trip-details-title">
   @if (loading()) {
     <div class="flex items-center justify-center py-12">
       <div class="animate-spin w-8 h-8 border-4 border-[var(--primary)] border-t-transparent rounded-full"></div>
@@ -6,23 +6,23 @@
   }
 
   @if (!loading() && trip()) {
-    <div class="flex flex-col gap-2">
-      <button (click)="goBack()" class="flex items-center gap-2 text-[var(--text-muted)] hover:text-[var(--primary)] transition w-fit">
-        <svg lucideArrowRight class="w-5 h-5"></svg>
+    <header class="flex flex-col gap-2">
+      <button type="button" (click)="goBack()" class="flex items-center gap-2 text-[var(--text-muted)] hover:text-[var(--primary)] transition w-fit">
+        <svg lucideArrowRight class="w-5 h-5" aria-hidden="true"></svg>
         العودة إلى الرحلات
       </button>
-    </div>
+    </header>
 
-    <div class="rounded-xl border border-[var(--border)] bg-[var(--bg-card)] shadow-[0_1px_3px_var(--shadow)] p-6">
+    <section aria-labelledby="trip-details-title" class="rounded-xl border border-[var(--border)] bg-[var(--bg-card)] shadow-[0_1px_3px_var(--shadow)] p-6">
       <div class="flex flex-col md:flex-row gap-6">
         <div class="w-full md:w-64 h-64 rounded-xl bg-[var(--primary-light)] flex items-center justify-center">
-          <svg lucideRoute class="w-20 h-20 text-[var(--primary)]"></svg>
+          <svg lucideRoute class="w-20 h-20 text-[var(--primary)]" aria-hidden="true"></svg>
         </div>
 
         <div class="flex-1 flex flex-col gap-4">
           <div>
-            <h1 class="text-lg md:text-2xl font-bold text-[var(--text-primary)]">
-              {{ trip()!.fromCity }} ({{ trip()!.fromState }}) <svg lucideArrowLeft class="w-5 h-5 inline"></svg> {{ trip()!.toCity }} ({{ trip()!.toState }})
+            <h1 id="trip-details-title" class="text-lg md:text-2xl font-bold text-[var(--text-primary)]">
+              {{ trip()!.fromCity }} ({{ trip()!.fromState }}) <svg lucideArrowLeft class="w-5 h-5 inline" aria-hidden="true"></svg> {{ trip()!.toCity }} ({{ trip()!.toState }})
             </h1>
           </div>
 
@@ -66,14 +66,14 @@
           </div>
         </div>
       </div>
-    </div>
+    </section>
 
     @if (bus()) {
-      <div class="rounded-xl border border-[var(--border)] bg-[var(--bg-card)] shadow-[0_1px_3px_var(--shadow)] p-6">
-        <h2 class="text-base md:text-xl font-bold text-[var(--text-primary)] mb-4">الحافلة</h2>
+      <section aria-labelledby="trip-bus-title" class="rounded-xl border border-[var(--border)] bg-[var(--bg-card)] shadow-[0_1px_3px_var(--shadow)] p-6">
+        <h2 id="trip-bus-title" class="text-base md:text-xl font-bold text-[var(--text-primary)] mb-4">الحافلة</h2>
         <div class="flex flex-col md:flex-row gap-6">
           <div class="w-full md:w-48 h-48 rounded-xl bg-[var(--primary-light)] flex items-center justify-center">
-            <svg lucideBus class="w-16 h-16 text-[var(--primary)]"></svg>
+            <svg lucideBus class="w-16 h-16 text-[var(--primary)]" aria-hidden="true"></svg>
           </div>
 
           <div class="flex-1 flex flex-col gap-4">
@@ -94,23 +94,23 @@
                 <span class="text-sm text-[var(--text-muted)]">اللوحة</span>
                 <span class="text-sm md:text-lg font-medium text-[var(--text-primary)]">{{ bus()!.plate.numbers | arabicNumber }}/{{ bus()!.plate.english }}/{{ bus()!.plate.arabic }}</span>
               </div>
-            </div>
           </div>
         </div>
       </div>
+    </section>
     }
 
-    <div class="rounded-xl border border-[var(--border)] bg-[var(--bg-card)] shadow-[0_1px_3px_var(--shadow)] p-6">
+    <section aria-labelledby="trip-bookings-title" class="rounded-xl border border-[var(--border)] bg-[var(--bg-card)] shadow-[0_1px_3px_var(--shadow)] p-6">
       <div class="flex items-center justify-between mb-4">
-        <h2 class="text-base md:text-xl font-bold text-[var(--text-primary)]">الحجوزات</h2>
+        <h2 id="trip-bookings-title" class="text-base md:text-xl font-bold text-[var(--text-primary)]">الحجوزات</h2>
         <div class="flex flex-col md:flex-row items-stretch md:items-center gap-2">
-          <button (click)="openBookingModal()" class="flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-lg bg-[var(--primary)] text-white hover:opacity-90 transition text-sm font-bold active:scale-95">
-            <svg lucideUserPlus class="w-4 h-4"></svg>
+          <button (click)="openBookingModal()" class="flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-lg bg-[var(--primary)] text-white hover:opacity-90 transition text-sm font-bold active:scale-95" type="button">
+            <svg lucideUserPlus class="w-4 h-4" aria-hidden="true"></svg>
             حجز مكتبي
           </button>
           @if (confirmedBookings().length > 0) {
-            <button (click)="downloadPassengers(trip()!.id)" class="flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-lg bg-emerald-50 text-emerald-600 hover:opacity-80 transition text-sm font-bold active:scale-95">
-              <svg lucideDownload class="w-4 h-4"></svg>
+            <button (click)="downloadPassengers(trip()!.id)" class="flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-lg bg-emerald-50 text-emerald-600 hover:opacity-80 transition text-sm font-bold active:scale-95" type="button">
+              <svg lucideDownload class="w-4 h-4" aria-hidden="true"></svg>
               تحميل
             </button>
           }
@@ -156,8 +156,9 @@
 
                     @if (isStationary(booking)) {
                       <td class="p-3">
-                        <button (click)="cancelStationaryBooking(booking.id)" class="flex items-center gap-1 px-2 py-1 rounded-lg bg-red-50 text-red-500 text-xs font-bold active:scale-95 transition-all hover:bg-red-100">
-                          <svg lucideTrash2 class="w-3 h-3"></svg>
+                        <button type="button" (click)="cancelStationaryBooking(booking.id)" aria-label="إلغاء الحجز المكتبي"
+                          class="flex items-center gap-1 px-2 py-1 rounded-lg bg-red-50 text-red-500 text-xs font-bold active:scale-95 transition-all hover:bg-red-100">
+                          <svg lucideTrash2 class="w-3 h-3" aria-hidden="true"></svg>
                         </button>
                       </td>
                     }
@@ -172,25 +173,25 @@
           <p class="text-[var(--text-muted)]">لا توجد حجوزات مؤكدة</p>
         </div>
       }
-    </div>
+    </section>
   }
 
   @if (!loading() && !trip()) {
-    <div class="flex flex-col items-center justify-center py-12 text-center">
+    <section class="flex flex-col items-center justify-center py-12 text-center">
       <p class="text-sm md:text-lg font-medium text-[var(--text-muted)]">لم يتم العثور على الرحلة</p>
-      <button (click)="goBack()" class="text-[var(--primary)] hover:underline mt-2">العودة إلى الرحلات</button>
-    </div>
+      <button type="button" (click)="goBack()" class="text-[var(--primary)] hover:underline mt-2">العودة إلى الرحلات</button>
+    </section>
   }
-</div>
+</section>
 
 <!-- Stationary Booking Modal -->
 @if (showBookingModal()) {
-  <div class="fixed inset-0 z-[60] bg-black/60 backdrop-blur-sm flex items-end md:items-center justify-center p-0 md:p-4" (click)="closeBookingModal()">
+  <aside role="dialog" aria-modal="true" aria-labelledby="trip-booking-modal-title" class="fixed inset-0 z-[60] bg-black/60 backdrop-blur-sm flex items-end md:items-center justify-center p-0 md:p-4" (click)="closeBookingModal()">
     <div class="w-full md:max-w-md max-md:mb-[calc(64px+var(--safe-bottom))] bg-[var(--bg-card)] rounded-t-2xl md:rounded-2xl flex flex-col shadow-2xl overflow-hidden max-h-[90dvh]" (click)="$event.stopPropagation()">
       <div class="flex items-center justify-between px-5 py-4 border-b border-[var(--border)]">
-        <h3 class="text-base font-bold text-[var(--text-primary)] flex items-center gap-2"><svg lucideUserPlus class="w-4 h-4 text-[var(--primary)]"></svg>حجز مكتبي</h3>
-        <button (click)="closeBookingModal()" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-[var(--bg-base)] text-[var(--text-muted)] hover:text-[var(--text-primary)] transition-all">
-          <svg lucideX class="w-5 h-5"></svg>
+        <h3 id="trip-booking-modal-title" class="text-base font-bold text-[var(--text-primary)] flex items-center gap-2"><svg lucideUserPlus class="w-4 h-4 text-[var(--primary)]" aria-hidden="true"></svg>حجز مكتبي</h3>
+        <button type="button" (click)="closeBookingModal()" aria-label="إغلاق نافذة الحجز" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-[var(--bg-base)] text-[var(--text-muted)] hover:text-[var(--text-primary)] transition-all">
+          <svg lucideX class="w-5 h-5" aria-hidden="true"></svg>
         </button>
       </div>
 
@@ -200,18 +201,18 @@
         }
 
         <div class="flex flex-col gap-1.5">
-          <label class="text-xs font-bold text-[var(--text-secondary)]">اسم الراكب</label>
-          <input type="text" [ngModel]="passengerName()" (ngModelChange)="passengerName.set($event)" placeholder="أدخل اسم الراكب" class="w-full h-[44px] px-4 rounded-xl border border-[var(--border)] bg-[var(--bg-base)] text-sm text-[var(--text-primary)] placeholder:text-[var(--text-muted)] outline-none focus:border-[var(--primary)] focus:ring-1 focus:ring-[var(--primary)] transition-all">
+          <label for="trip-passenger-name" class="text-xs font-bold text-[var(--text-secondary)]">اسم الراكب</label>
+          <input id="trip-passenger-name" type="text" [ngModel]="passengerName()" (ngModelChange)="passengerName.set($event)" placeholder="أدخل اسم الراكب" class="w-full h-[44px] px-4 rounded-xl border border-[var(--border)] bg-[var(--bg-base)] text-sm text-[var(--text-primary)] placeholder:text-[var(--text-muted)] outline-none focus:border-[var(--primary)] focus:ring-1 focus:ring-[var(--primary)] transition-all">
         </div>
 
         <div class="grid grid-cols-2 gap-3">
           <div class="flex flex-col gap-1.5">
-            <label class="text-xs font-bold text-[var(--text-secondary)]">العمر</label>
-            <input type="number" [ngModel]="passengerAge()" (ngModelChange)="passengerAge.set($event)" placeholder="العمر" min="1" class="w-full h-[44px] px-4 rounded-xl border border-[var(--border)] bg-[var(--bg-base)] text-sm text-[var(--text-primary)] placeholder:text-[var(--text-muted)] outline-none focus:border-[var(--primary)] focus:ring-1 focus:ring-[var(--primary)] transition-all">
+            <label for="trip-passenger-age" class="text-xs font-bold text-[var(--text-secondary)]">العمر</label>
+            <input id="trip-passenger-age" type="number" [ngModel]="passengerAge()" (ngModelChange)="passengerAge.set($event)" placeholder="العمر" min="1" class="w-full h-[44px] px-4 rounded-xl border border-[var(--border)] bg-[var(--bg-base)] text-sm text-[var(--text-primary)] placeholder:text-[var(--text-muted)] outline-none focus:border-[var(--primary)] focus:ring-1 focus:ring-[var(--primary)] transition-all">
           </div>
           <div class="flex flex-col gap-1.5">
-            <label class="text-xs font-bold text-[var(--text-secondary)]">الجنس</label>
-            <select [ngModel]="passengerGender()" (ngModelChange)="passengerGender.set($event)" class="w-full h-[44px] px-4 rounded-xl border border-[var(--border)] bg-[var(--bg-base)] text-sm text-[var(--text-primary)] outline-none focus:border-[var(--primary)] focus:ring-1 focus:ring-[var(--primary)] transition-all">
+            <label for="trip-passenger-gender" class="text-xs font-bold text-[var(--text-secondary)]">الجنس</label>
+            <select id="trip-passenger-gender" [ngModel]="passengerGender()" (ngModelChange)="passengerGender.set($event)" class="w-full h-[44px] px-4 rounded-xl border border-[var(--border)] bg-[var(--bg-base)] text-sm text-[var(--text-primary)] outline-none focus:border-[var(--primary)] focus:ring-1 focus:ring-[var(--primary)] transition-all">
               <option value="MALE">ذكر</option>
               <option value="FEMALE">أنثى</option>
             </select>
@@ -219,8 +220,8 @@
         </div>
 
         <div class="flex flex-col gap-1.5">
-          <label class="text-xs font-bold text-[var(--text-secondary)]">رقم المقعد</label>
-          <input type="text" [ngModel]="seatNumbersInput()" (ngModelChange)="seatNumbersInput.set($event)" placeholder="مثال: 1, 2, 3" class="w-full h-[44px] px-4 rounded-xl border border-[var(--border)] bg-[var(--bg-base)] text-sm text-[var(--text-primary)] placeholder:text-[var(--text-muted)] outline-none focus:border-[var(--primary)] focus:ring-1 focus:ring-[var(--primary)] transition-all">
+          <label for="trip-seat-numbers" class="text-xs font-bold text-[var(--text-secondary)]">رقم المقعد</label>
+          <input id="trip-seat-numbers" type="text" [ngModel]="seatNumbersInput()" (ngModelChange)="seatNumbersInput.set($event)" placeholder="مثال: 1, 2, 3" class="w-full h-[44px] px-4 rounded-xl border border-[var(--border)] bg-[var(--bg-base)] text-sm text-[var(--text-primary)] placeholder:text-[var(--text-muted)] outline-none focus:border-[var(--primary)] focus:ring-1 focus:ring-[var(--primary)] transition-all">
           @if (bus()) {
             <span class="text-[10px] text-[var(--text-muted)]">المقاعد المتاحة: ١ - {{ bus()!.chairs | arabicNumber }}</span>
           }
@@ -228,29 +229,29 @@
       </div>
 
       <div class="px-5 py-4 border-t border-[var(--border)] flex items-center gap-3">
-        <button (click)="closeBookingModal()" class="flex-1 h-[48px] rounded-xl border border-[var(--border)] text-sm font-bold text-[var(--text-secondary)] hover:bg-[var(--bg-base)] transition-all">إلغاء</button>
-        <button (click)="submitBooking()" [disabled]="bookingSubmitting()" class="flex-1 h-[48px] rounded-xl bg-[var(--primary)] text-white text-sm font-bold hover:bg-[var(--primary-hover)] transition-all disabled:opacity-50 flex items-center justify-center gap-2">
+        <button type="button" (click)="closeBookingModal()" class="flex-1 h-[48px] rounded-xl border border-[var(--border)] text-sm font-bold text-[var(--text-secondary)] hover:bg-[var(--bg-base)] transition-all">إلغاء</button>
+        <button type="button" (click)="submitBooking()" [disabled]="bookingSubmitting()" class="flex-1 h-[48px] rounded-xl bg-[var(--primary)] text-white text-sm font-bold hover:bg-[var(--primary-hover)] transition-all disabled:opacity-50 flex items-center justify-center gap-2">
           @if (bookingSubmitting()) { <span class="animate-spin w-4 h-4 border-2 border-white border-t-transparent rounded-full"></span> }
           تأكيد الحجز
         </button>
       </div>
     </div>
-  </div>
+  </aside>
 }
 
 <!-- Ticket PDF Viewer Modal -->
 @if (showTicketModal()) {
-  <div class="fixed inset-0 z-[60] bg-black/60 backdrop-blur-sm flex items-end md:items-center justify-center p-0 md:p-4" (click)="closeTicketModal()">
+  <aside role="dialog" aria-modal="true" aria-labelledby="trip-ticket-modal-title" class="fixed inset-0 z-[60] bg-black/60 backdrop-blur-sm flex items-end md:items-center justify-center p-0 md:p-4" (click)="closeTicketModal()">
     <div class="w-full md:max-w-4xl md:h-[90vh] max-md:mb-[calc(64px+var(--safe-bottom))] bg-[var(--bg-card)] rounded-t-2xl md:rounded-2xl flex flex-col shadow-2xl overflow-hidden max-h-[90dvh]" (click)="$event.stopPropagation()">
       <div class="flex items-center justify-between px-5 py-4 border-b border-[var(--border)]">
-        <h3 class="text-base font-bold text-[var(--text-primary)]">{{ ticketModalTitle() }}</h3>
-        <button (click)="closeTicketModal()" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-[var(--bg-base)] text-[var(--text-muted)] hover:text-[var(--text-primary)] transition-all">
-          <svg lucideX class="w-5 h-5"></svg>
+        <h3 id="trip-ticket-modal-title" class="text-base font-bold text-[var(--text-primary)]">{{ ticketModalTitle() }}</h3>
+        <button type="button" (click)="closeTicketModal()" aria-label="إغلاق نافذة التذكرة" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-[var(--bg-base)] text-[var(--text-muted)] hover:text-[var(--text-primary)] transition-all">
+          <svg lucideX class="w-5 h-5" aria-hidden="true"></svg>
         </button>
       </div>
       <div class="flex-1 bg-[var(--bg-base)]">
         <iframe [src]="safeUrl(ticketModalUrl())" class="w-full h-full border-0"></iframe>
       </div>
     </div>
-  </div>
+  </aside>
 }

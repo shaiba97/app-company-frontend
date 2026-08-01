@@ -1,13 +1,13 @@
-<div dir="rtl" class="p-4 md:p-6 flex flex-col gap-6">
+<section dir="rtl" aria-labelledby="notifications-title" class="p-4 md:p-6 flex flex-col gap-6">
 
   <!-- HEADER -->
-  <div class="flex items-center justify-between flex-wrap gap-3">
+  <header class="flex items-center justify-between flex-wrap gap-3">
     <div class="flex items-center gap-3">
-      <a routerLink="/" class="w-9 h-9 rounded-xl flex items-center justify-center border border-[var(--border)] text-[var(--text-secondary)] hover:bg-[var(--primary-light)] hover:text-[var(--primary)] transition-all">
-        <svg lucideArrowLeft class="w-4 h-4"></svg>
+      <a routerLink="/" aria-label="العودة إلى الرئيسية" class="w-9 h-9 rounded-xl flex items-center justify-center border border-[var(--border)] text-[var(--text-secondary)] hover:bg-[var(--primary-light)] hover:text-[var(--primary)] transition-all">
+        <svg lucideArrowLeft class="w-4 h-4" aria-hidden="true"></svg>
       </a>
       <div class="flex flex-col">
-        <h1 class="text-lg md:text-2xl font-extrabold text-[var(--text-primary)]">الإشعارات</h1>
+        <h1 id="notifications-title" class="text-lg md:text-2xl font-extrabold text-[var(--text-primary)]">الإشعارات</h1>
         @if (unreadCount() > 0) {
           <p class="text-sm text-[var(--text-secondary)]">لديك {{ toArabic(unreadCount()) }} إشعارات غير مقروءة</p>
         }
@@ -15,22 +15,22 @@
     </div>
     <div class="flex items-center gap-2 flex-wrap">
       @if (notifications().length > 0) {
-        <button (click)="markAllRead()" class="flex items-center gap-1.5 px-4 h-9 rounded-xl border border-[var(--border)] text-xs font-semibold text-[var(--text-secondary)] hover:border-[var(--primary)] hover:text-[var(--primary)] transition-all">
-          <svg lucideCheckCheck class="w-3.5 h-3.5"></svg>
+        <button type="button" (click)="markAllRead()" class="flex items-center gap-1.5 px-4 h-9 rounded-xl border border-[var(--border)] text-xs font-semibold text-[var(--text-secondary)] hover:border-[var(--primary)] hover:text-[var(--primary)] transition-all">
+          <svg lucideCheckCheck class="w-3.5 h-3.5" aria-hidden="true"></svg>
           تحديد الكل مقروء
         </button>
       }
-      <button (click)="load()" [disabled]="isLoading()" class="flex items-center gap-2 px-4 h-9 rounded-xl border border-[var(--border)] text-xs font-semibold text-[var(--text-secondary)] hover:border-[var(--primary)] hover:text-[var(--primary)] transition-all disabled:opacity-50">
-        <svg lucideRefreshCw class="w-3.5 h-3.5" [class.animate-spin]="isLoading()"></svg>
+      <button type="button" (click)="load()" [disabled]="isLoading()" class="flex items-center gap-2 px-4 h-9 rounded-xl border border-[var(--border)] text-xs font-semibold text-[var(--text-secondary)] hover:border-[var(--primary)] hover:text-[var(--primary)] transition-all disabled:opacity-50">
+        <svg lucideRefreshCw class="w-3.5 h-3.5" [class.animate-spin]="isLoading()" aria-hidden="true"></svg>
         تحديث
       </button>
     </div>
-  </div>
+  </header>
 
   <!-- LOADING -->
   @if (isLoading()) {
     <div class="flex flex-col items-center justify-center py-24 gap-4">
-      <svg lucideLoaderCircle class="w-12 h-12 animate-spin text-[var(--primary)]"></svg>
+      <svg lucideLoaderCircle class="w-12 h-12 animate-spin text-[var(--primary)]" aria-hidden="true"></svg>
       <p class="text-sm font-medium text-[var(--text-muted)]">جاري تحميل الإشعارات...</p>
     </div>
   }
@@ -39,17 +39,17 @@
   @if (!isLoading() && error()) {
     <div class="flex flex-col items-center justify-center py-24 gap-4">
       <div class="w-16 h-16 rounded-full bg-red-50 flex items-center justify-center">
-        <svg lucideAlertCircle class="w-8 h-8 text-red-400"></svg>
+        <svg lucideAlertCircle class="w-8 h-8 text-red-400" aria-hidden="true"></svg>
       </div>
       <p class="text-base font-semibold text-[var(--text-primary)]">{{ error() }}</p>
-      <button (click)="load()" class="px-6 py-3 rounded-xl bg-[var(--primary)] text-white font-semibold text-sm hover:bg-[var(--primary-hover)] transition-all">حاول مجدداً</button>
+      <button (click)="load()" class="px-6 py-3 rounded-xl bg-[var(--primary)] text-white font-semibold text-sm hover:bg-[var(--primary-hover)] transition-all" type="button">حاول مجدداً</button>
     </div>
   }
 
   <!-- EMPTY -->
   @if (!isLoading() && !error() && notifications().length === 0) {
     <div class="flex flex-col items-center justify-center py-24 gap-4 text-[var(--text-muted)]">
-      <svg lucideBellOff class="w-16 h-16 opacity-30"></svg>
+      <svg lucideBellOff class="w-16 h-16 opacity-30" aria-hidden="true"></svg>
       <div class="text-center">
         <p class="text-sm md:text-lg font-bold text-[var(--text-primary)]">لا توجد إشعارات</p>
         <p class="text-sm mt-1">ستظهر هنا الإشعارات الجديدة عند ورودها</p>
@@ -59,17 +59,22 @@
 
   <!-- NOTIFICATIONS LIST -->
   @if (!isLoading() && !error() && notifications().length > 0) {
-    <div class="bg-[var(--bg-card)] rounded-2xl border border-[var(--border)] overflow-hidden">
+    <section aria-label="قائمة الإشعارات" class="bg-[var(--bg-card)] rounded-2xl border border-[var(--border)] overflow-hidden">
       <div class="flex flex-col">
         @for (n of notifications(); track n.id) {
-          <div
-            class="flex items-start gap-4 px-5 py-4 border-b border-[var(--border)] last:border-0 hover:bg-[var(--bg-base)]/40 transition-colors cursor-pointer"
-            [class.bg-[var(--primary-light)]/20]="!n.isRead"
-            (click)="markRead(n.id)">
+          <article
+            tabindex="0"
+            role="button"
+            [attr.aria-label]="n.isRead ? 'إشعار مقروء: ' + n.title : 'إشعار غير مقروء: ' + n.title"
+            (click)="markRead(n.id)"
+            (keydown.enter)="markRead(n.id)"
+            (keydown.space)="markRead(n.id); $event.preventDefault()"
+            class="flex items-start gap-4 px-5 py-4 border-b border-[var(--border)] last:border-0 hover:bg-[var(--bg-base)]/40 transition-colors cursor-pointer focus-visible:outline-2 focus-visible:outline-[var(--primary)]"
+            [class.bg-[var(--primary-light)]/20]="!n.isRead">
             <div class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
               [class.bg-[var(--primary-light)]]="!n.isRead"
               [class.bg-[var(--bg-base)]]="n.isRead">
-              <svg lucideBell class="w-5 h-5" [class.text-[var(--primary)]]="!n.isRead" [class.text-[var(--text-muted)]]="n.isRead"></svg>
+              <svg lucideBell class="w-5 h-5" [class.text-[var(--primary)]]="!n.isRead" [class.text-[var(--text-muted)]]="n.isRead" aria-hidden="true"></svg>
             </div>
             <div class="flex-1 min-w-0">
               <div class="flex items-center gap-2">
@@ -83,12 +88,12 @@
             </div>
             @if (n.isRead) {
               <div class="flex-shrink-0">
-                <svg lucideCheck class="w-4 h-4 text-emerald-500"></svg>
+                <svg lucideCheck class="w-4 h-4 text-emerald-500" aria-hidden="true"></svg>
               </div>
             }
-          </div>
+          </article>
         }
       </div>
-    </div>
+    </section>
   }
-</div>
+</section>
