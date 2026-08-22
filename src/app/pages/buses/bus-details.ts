@@ -53,7 +53,6 @@ export class BusDetailsComponent implements OnInit {
   private http = inject(HttpClient);
   private busService = inject(BusService)
   private tripService = inject(TripService)
-  private apiUrl = 'http://localhost:3001/api';
 
 
   busId = signal<string>('');

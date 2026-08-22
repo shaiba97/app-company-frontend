@@ -28,7 +28,6 @@ interface Bus {
 export class BusesComponent {
   private http = inject(HttpClient);
   private router = inject(Router);
-  private apiUrl = 'http://localhost:3001/api';
 
   buses = signal<Bus[]>([]);
   showForm = signal(false);

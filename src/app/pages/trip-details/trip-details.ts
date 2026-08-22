@@ -9,6 +9,7 @@ import { AuthService } from '../../core/services/auth';
 import { LucideBus, LucideArrowRight, LucideRoute, LucideArrowLeft, LucideDownload, LucideX, LucideTrash2, LucideUserPlus } from '@lucide/angular';
 import { ArabicNumberPipe } from '../../pipes/arabic-number/arabic-number-pipe';
 import { WsService } from '../../core/services/ws.service'
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-trip-details',
@@ -100,18 +101,55 @@ export class TripDetailsComponent implements OnInit, OnDestroy {
   }
 
   downloadTicket(url: string | undefined): void {
-    if (url) window.open(url, '_blank');
+    const resolved = this.resolveFileUrl(url);
+    if (resolved) window.open(resolved, '_blank');
   }
 
   viewTicket(url: string | undefined): void {
-    if (url) { this.ticketModalUrl.set(url); this.ticketModalTitle.set('التذكرة'); this.showTicketModal.set(true); }
+    const resolved = this.resolveFileUrl(url);
+    if (resolved) { this.ticketModalUrl.set(resolved); this.ticketModalTitle.set('التذكرة'); this.showTicketModal.set(true); }
   }
 
   closeTicketModal(): void { this.showTicketModal.set(false); this.ticketModalUrl.set(''); this.ticketModalTitle.set(''); }
-  safeUrl(url: string) { return this.sanitizer.bypassSecurityTrustResourceUrl(url); }
+
+  /**
+   * Ticket/PDF paths from the backend are root-relative (`/upload/x.pdf`) —
+   * resolve them against the backend file base. Only URLs on the trusted
+   * backend origin are ever handed to a bypassed resource URL.
+   */
+  safeUrl(url: string) {
+    const resolved = this.resolveFileUrl(url);
+    return this.sanitizer.bypassSecurityTrustResourceUrl(resolved ?? 'about:blank');
+  }
+
+  private resolveFileUrl(url: string | undefined): string | null {
+    if (!url || typeof url !== 'string') return null;
+    const raw = url.trim();
+    if (!raw || raw.length > 512) return null;
+    let absolute: string;
+    try {
+      absolute = new URL(raw, environment.fileUrl).toString();
+    } catch {
+      return null;
+    }
+    // Trust only the configured backend file host.
+    try {
+      const trusted = new URL(environment.fileUrl);
+      const target = new URL(absolute);
+      if (target.origin !== trusted.origin) return null;
+      if (!/^\/uploads?\//.test(target.pathname)) return null;
+      return absolute;
+    } catch {
+      return null;
+    }
+  }
 
   downloadPassengers(tripId: string): void {
     const url = this.tripService.downloadPassengers(tripId);
+    if (!url) {
+      alert('انتهت الجلسة — يرجى تسجيل الدخول من جديد ثم المحاولة');
+      return;
+    }
     window.open(url, '_blank');
   }
 

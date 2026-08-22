@@ -107,12 +107,18 @@ export class TripService {
 
   private auth = inject(AuthService);
 
-  downloadPassengers(tripId: string): string {
+  /**
+   * Browser navigation cannot send Authorization headers, so the JWT travels
+   * as a query parameter (the backend accepts either). Returns null when the
+   * session or identifiers are not usable.
+   */
+  downloadPassengers(tripId: string): string | null {
+    if (!/^[a-zA-Z0-9_-]{1,64}$/.test(tripId)) return null;
     const token = this.auth.getToken();
-    if (token) {
-      return `${this.apiUrl}/trips/passenger-list/${tripId}?token=${token}`;
+    if (!token || !/^[A-Za-z0-9-_]+\.[A-Za-z0-9-_]+\.[A-Za-z0-9-_]+$/.test(token)) {
+      return null;
     }
-    return `${this.apiUrl}/trips/download-passengers/${tripId}`;
+    return `${this.apiUrl}/trips/passenger-list/${tripId}?token=${encodeURIComponent(token)}`;
   }
 
   getPassengersPdfUrl(tripId: string): Observable<{ url: string }> {

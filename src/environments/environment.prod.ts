@@ -5,4 +5,5 @@ export const environment = {
     customer: 'https://app-backend-gz2l.onrender.com/api-customer',
   },
   wsUrl: 'https://app-backend-gz2l.onrender.com',
+  fileUrl: 'https://app-backend-gz2l.onrender.com',
 };
