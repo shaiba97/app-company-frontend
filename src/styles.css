@@ -25,6 +25,7 @@
 
 :root {
   --primary: #8B5E3C;
+  --text-primary: #1F2937;
   --primary-hover: #6E472D;
   --primary-light: #F5EFEA;
   --primary-muted: #D4A574;
@@ -32,7 +33,7 @@
   --bg-card: #FFFFFF;
   --bg-sidebar: #FFFFFF;
   --border: #E8E0D8;
-  --text-primary: #1F2937;
+  
   --text-secondary: #6B7280;
   --text-muted: #9CA3AF;
   --shadow: rgba(139, 94, 60, 0.08);
