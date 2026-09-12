@@ -1,6 +1,6 @@
 {
   "/upload": {
-    "target": "http://localhost:3002",
+    "target": "https://app-backend-production-4da9.up.railway.app",
     "secure": false,
     "changeOrigin": true
   }
