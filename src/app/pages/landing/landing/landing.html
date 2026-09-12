@@ -1,0 +1,273 @@
+<!-- Slim top bar -->
+<header class="sticky top-0 z-50 border-b border-[var(--border)] bg-[var(--bg-card)]/90 backdrop-blur-md">
+  <div class="mx-auto flex h-[56px] max-w-[1280px] items-center justify-between px-4 sm:px-6 lg:px-8">
+    <span class="text-[18px] font-extrabold tracking-tight text-[var(--text-primary)]">تفية</span>
+    <a routerLink="/auth/login" class="inline-flex h-[36px] items-center gap-2 rounded-full bg-[var(--primary)] px-5 text-[13px] font-semibold text-white transition hover:bg-[var(--primary-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--primary)] focus-visible:ring-offset-2">
+      <svg lucideLogIn class="w-4 h-4" aria-hidden="true"></svg>
+      تسجيل الدخول
+    </a>
+  </div>
+</header>
+
+<!-- A. SECTION INTRO -->
+<section class="border-b border-[var(--border)] bg-[var(--bg-card)] py-14 sm:py-20" aria-labelledby="company-heading">
+  <div class="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-[640px] text-center">
+      <p class="mb-3 inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-[var(--primary-light)] px-3 py-1 text-[11px] font-medium tracking-[0.14em] text-[var(--text-primary)]">
+        <span class="h-1.5 w-1.5 rounded-full bg-[var(--primary)]" aria-hidden="true"></span>
+        لشركات النقل ومكاتب حجز التذاكر
+      </p>
+      <h1 id="company-heading" class="text-balance text-[26px] font-extrabold leading-[1.2] tracking-tight text-[var(--text-primary)] sm:text-[32px] lg:text-[36px]">
+        انضم إلينا كمكتب أو شركة حجز تذاكر
+      </h1>
+      <p class="mx-auto mt-3 max-w-[520px] text-[14px] leading-7 text-[var(--text-primary)]/60">
+        اعرض رحلاتك، أدِر مقاعدك واستقبل حجوزاتك رقمياً — على مدار الساعة.
+      </p>
+      <p class="mx-auto mt-2 max-w-[480px] text-[13px] leading-6 text-[var(--text-primary)]/45">
+        حوّل بيع التذاكر من العمل اليدوي إلى الحجز الرقمي.
+      </p>
+      <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:justify-center">
+        <a routerLink="/auth/login" class="inline-flex h-[48px] w-full items-center justify-center rounded-full border border-[var(--primary)] bg-white px-8 text-[14px] font-semibold text-[var(--primary)] transition hover:bg-[var(--primary-light)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--primary)] focus-visible:ring-offset-2 sm:w-auto">
+          تسجيل الدخول
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- B. BUSINESS VALUE — 6 benefits -->
+<section class="border-b border-[var(--border)] bg-[var(--bg-base)] py-14 sm:py-20" aria-labelledby="benefits-heading">
+  <div class="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-[560px] text-center">
+      <h2 id="benefits-heading" class="text-[18px] font-extrabold tracking-tight text-[var(--text-primary)] sm:text-[20px]">لماذا تنضم إلى تفية؟</h2>
+      <p class="mt-2 text-[13px] leading-6 text-[var(--text-primary)]/60">ست مزايا تشغيلية مباشرة — بدون وعود مضللة أو أرقام مختلقة.</p>
+    </div>
+
+    <div class="mx-auto mt-10 grid max-w-[1080px] grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      @for (b of benefits; track b.title) {
+        <div class="flex flex-col gap-4 rounded-[16px] border border-[var(--border)] bg-[var(--bg-card)] p-6 transition hover:border-[var(--primary)]/20 hover:bg-[var(--primary-light)]/20">
+          <span class="flex h-10 w-10 items-center justify-center rounded-[10px] border border-[var(--border)] bg-white text-[var(--primary)]" aria-hidden="true">
+            @if (b.icon === 'clock') {
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="12" r="8"/><path d="M12 8 V12 L15 14"/><circle cx="12" cy="12" r="1" fill="currentColor" stroke="none"/></svg>
+            } @else if (b.icon === 'seats') {
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><rect x="5" y="7" width="14" height="10" rx="2"/><path d="M7 7 V5 A2 2 0 0 1 9 3 H15 A2 2 0 0 1 17 5 V7"/><path d="M9 17 V19 M15 17 V19"/><path d="M9 12 H9.01 M15 12 H15.01" stroke-width="2.2" stroke-linecap="round"/></svg>
+            } @else if (b.icon === 'manual') {
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="10" rx="2"/><path d="M8 14 H16"/><path d="M8 18 H13"/><path d="M4 8 H20" opacity="0.35"/><path d="M7 11 L9 11 M12 11 L14 11" opacity="0.5"/></svg>
+            } @else if (b.icon === 'central') {
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M4 9 H20 M9 9 V20"/><path d="M12 12 H16"/><path d="M12 15 H15"/></svg>
+            } @else if (b.icon === 'reports') {
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M6 18 V10"/><path d="M10 18 V6"/><path d="M14 18 V12"/><path d="M18 18 V8"/><path d="M3 18 H21"/></svg>
+            } @else {
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 3 V5"/><path d="M12 19 V21"/><path d="M3 12 H5"/><path d="M19 12 H21"/><path d="M5.8 5.8 L7.2 7.2"/><path d="M16.8 16.8 L18.2 18.2"/><path d="M18.2 5.8 L16.8 7.2"/><path d="M7.2 16.8 L5.8 18.2"/></svg>
+            }
+          </span>
+          <div>
+            <h3 class="text-[14px] font-bold leading-6 text-[var(--text-primary)]">{{ b.title }}</h3>
+            <p class="mt-1.5 text-[13px] leading-6 text-[var(--text-primary)]/60">{{ b.desc }}</p>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- C. SALES ADVANTAGES — 24/7 concept + flow comparison -->
+<section class="border-b border-[var(--border)] bg-[var(--bg-card)] py-14 sm:py-20" aria-labelledby="sales-heading">
+  <div class="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-[640px] text-center">
+      <h2 id="sales-heading" class="text-[20px] font-extrabold tracking-tight text-[var(--text-primary)] sm:text-[24px]">بيع التذاكر لا يتوقف عند إغلاق المكتب</h2>
+      <p class="mt-3 text-[13px] leading-6 text-[var(--text-primary)]/60">تفية توسّع قناة البيع إلى ما بعد المكتب الفعلي — الرحلة منشورة، والعميل يكتشفها ويبدأ الحجز في أي وقت.</p>
+    </div>
+
+    <!-- 24/7 visual + concepts -->
+    <div class="mx-auto mt-10 grid max-w-[1080px] grid-cols-1 gap-6 lg:grid-cols-2">
+      <!-- Left: abstract 24/7 availability visual -->
+      <div class="relative overflow-hidden rounded-[20px] border border-[var(--border)] bg-[var(--bg-base)] p-6 sm:p-8" aria-hidden="true">
+        <div class="flex items-center justify-between">
+          <span class="text-[11px] font-medium tracking-[0.14em] text-[var(--text-primary)]/50">الإتاحة الرقمية</span>
+          <span class="inline-flex items-center gap-1.5 rounded-full border border-[var(--primary)]/20 bg-[var(--primary-light)] px-2.5 py-1 text-[10px] font-semibold text-[var(--primary)]"><span class="h-1.5 w-1.5 rounded-full bg-[var(--primary)]"></span> 24/7</span>
+        </div>
+        <!-- timeline: office hours vs always -->
+        <div class="mt-6 flex items-center gap-3">
+          <div class="flex-1">
+            <div class="flex items-center gap-2 text-[11px] text-[var(--text-primary)]/50"><span class="h-2 w-2 rounded-full bg-black/15"></span> ساعات المكتب</div>
+            <div class="mt-2 flex h-2 overflow-hidden rounded-full bg-black/[0.06]"><span class="w-[42%] bg-black/20"></span></div>
+            <p class="mt-1.5 text-[10px] text-[var(--text-primary)]/40">08:00 — 17:00</p>
+          </div>
+          <span class="text-[var(--primary)]/30">→</span>
+          <div class="flex-1">
+            <div class="flex items-center gap-2 text-[11px] font-medium text-[var(--primary)]"><span class="h-2 w-2 rounded-full bg-[var(--primary)]"></span> تفية</div>
+            <div class="mt-2 h-2 rounded-full bg-[var(--primary)]"></div>
+            <p class="mt-1.5 text-[10px] font-medium text-[var(--primary)]">متاح دائماً</p>
+          </div>
+        </div>
+        <!-- concepts -->
+        <div class="mt-6 grid grid-cols-2 gap-2 text-[11px] leading-5 text-[var(--text-primary)]/60">
+          <span class="rounded-[10px] border border-[var(--border)] bg-white px-3 py-2">اكتشاف خارج ساعات العمل</span>
+          <span class="rounded-[10px] border border-[var(--border)] bg-white px-3 py-2">بدء الحجز دون زيارة المكتب</span>
+          <span class="rounded-[10px] border border-[var(--border)] bg-white px-3 py-2">تأكيد رقمي محفوظ</span>
+          <span class="rounded-[10px] border border-[var(--border)] bg-white px-3 py-2">مخزون مقاعد معروض رقمياً</span>
+        </div>
+        <div class="pointer-events-none absolute inset-x-6 -bottom-3 h-6 rounded-full bg-[var(--primary)]/10 blur-xl"></div>
+      </div>
+
+      <!-- Right: flow comparison -->
+      <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+        <!-- Traditional -->
+        <div class="rounded-[16px] border border-dashed border-black/15 bg-[var(--bg-base)] p-5">
+          <p class="text-[11px] font-semibold tracking-[0.12em] text-black/40">النموذج التقليدي</p>
+          <ol class="mt-4 flex flex-col gap-0 text-[13px] leading-6 text-[var(--text-primary)]/70">
+            <li class="flex gap-3"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-black/20"></span>المكتب مفتوح</li>
+            <li class="ms-[2px] h-4 w-px bg-black/10" aria-hidden="true"></li>
+            <li class="flex gap-3"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-black/20"></span>الموظف يستقبل الطلب</li>
+            <li class="ms-[2px] h-4 w-px bg-black/10" aria-hidden="true"></li>
+            <li class="flex gap-3"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-black/20"></span>تسجيل الحجز</li>
+            <li class="ms-[2px] h-4 w-px bg-black/10" aria-hidden="true"></li>
+            <li class="flex gap-3"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-black/20"></span>إصدار التذكرة</li>
+          </ol>
+          <p class="mt-4 text-[11px] leading-5 text-[var(--text-primary)]/40">مرتبط بساعات المكتب والحضور الفعلي.</p>
+        </div>
+        <!-- Tafiya -->
+        <div class="rounded-[16px] border border-[var(--primary)]/20 bg-[var(--primary-light)]/40 p-5">
+          <p class="text-[11px] font-semibold tracking-[0.12em] text-[var(--primary)]">نموذج تفية</p>
+          <ol class="mt-4 flex flex-col gap-0 text-[13px] leading-6 text-[var(--text-primary)]">
+            <li class="flex gap-3"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--primary)]"></span>الرحلة منشورة</li>
+            <li class="ms-[2px] h-4 w-px bg-[var(--primary)]/20" aria-hidden="true"></li>
+            <li class="flex gap-3"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--primary)]"></span>العميل يبحث</li>
+            <li class="ms-[2px] h-4 w-px bg-[var(--primary)]/20" aria-hidden="true"></li>
+            <li class="flex gap-3"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--primary)]"></span>يختار المقعد</li>
+            <li class="ms-[2px] h-4 w-px bg-[var(--primary)]/20" aria-hidden="true"></li>
+            <li class="flex gap-3"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--primary)]"></span>يرسل بيانات الحجز</li>
+            <li class="ms-[2px] h-4 w-px bg-[var(--primary)]/20" aria-hidden="true"></li>
+            <li class="flex gap-3"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--primary)]"></span>تصل العملية للنظام</li>
+          </ol>
+          <p class="mt-4 text-[11px] leading-5 text-[var(--primary)]/70">قناة بيع رقمية تعمل حتى بعد إغلاق المكتب.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Digital sales benefits row -->
+    <div class="mx-auto mt-8 grid max-w-[1080px] grid-cols-1 gap-3 sm:grid-cols-3">
+      <div class="rounded-[12px] border border-[var(--border)] bg-[var(--bg-base)] px-4 py-3 text-[12px] leading-6 text-[var(--text-primary)]/70"><span class="font-semibold text-[var(--text-primary)]">التقاط الطلب مبكراً.</span> يكتشف العميل الرحلة ويبدأ الحجز قبل الوصول للمحطة.</div>
+      <div class="rounded-[12px] border border-[var(--border)] bg-[var(--bg-base)] px-4 py-3 text-[12px] leading-6 text-[var(--text-primary)]/70"><span class="font-semibold text-[var(--text-primary)]">احتكاك أقل.</span> تقليل الاعتماد على الورق والمكالمات المتكررة.</div>
+      <div class="rounded-[12px] border border-[var(--border)] bg-[var(--bg-base)] px-4 py-3 text-[12px] leading-6 text-[var(--text-primary)]/70"><span class="font-semibold text-[var(--text-primary)]">مخزون لحظي.</span> حالة المقاعد معروضة رقمياً لتقليل التضارب اليدوي.</div>
+    </div>
+  </div>
+</section>
+
+<!-- D. OPERATOR DASHBOARD PREVIEW (abstract) -->
+<section class="border-b border-[var(--border)] bg-[var(--bg-base)] py-14 sm:py-20" aria-labelledby="dashboard-heading">
+  <div class="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
+    <div class="mx-auto grid max-w-[1080px] grid-cols-1 items-start gap-8 lg:grid-cols-[1.05fr_0.95fr]">
+      <!-- Dashboard visual -->
+      <div class="order-2 overflow-hidden rounded-[20px] border border-[var(--border)] bg-white shadow-sm lg:order-1" aria-hidden="true">
+        <!-- top bar -->
+        <div class="flex items-center justify-between border-b border-[var(--border)] bg-[var(--bg-base)] px-4 py-3 sm:px-5">
+          <span class="text-[11px] font-semibold tracking-[0.12em] text-[var(--text-primary)]/50">لوحة التحكم — عرض توضيحي</span>
+          <span class="h-2 w-2 rounded-full bg-[var(--primary)]"></span>
+        </div>
+        <!-- tabs -->
+        <div class="flex gap-1 border-b border-[var(--border)] px-3 py-2 sm:px-4">
+          <span class="rounded-full bg-[var(--text-primary)] px-3 py-1 text-[10px] font-semibold text-white">الرحلات</span>
+          <span class="rounded-full border border-[var(--border)] bg-[var(--bg-base)] px-3 py-1 text-[10px] font-medium text-[var(--text-primary)]/60">الحجوزات</span>
+          <span class="rounded-full border border-[var(--border)] bg-[var(--bg-base)] px-3 py-1 text-[10px] font-medium text-[var(--text-primary)]/60">المقاعد</span>
+          <span class="rounded-full border border-[var(--border)] bg-[var(--bg-base)] px-3 py-1 text-[10px] font-medium text-[var(--text-primary)]/60">المسافرين</span>
+        </div>
+        <!-- trip -->
+        <div class="p-4 sm:p-5">
+          <div class="flex items-center justify-between rounded-[12px] border border-[var(--border)] bg-[var(--bg-base)] px-4 py-3">
+            <div class="flex items-center gap-3">
+              <span class="flex h-8 w-8 items-center justify-center rounded-full bg-[var(--primary)] text-white"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.7"><path d="M3 12 H21"/><path d="M7 8 L10 12 L7 16"/><path d="M14 8 L17 12 L14 16" opacity="0.6"/></svg></span>
+              <div>
+                <p class="text-[13px] font-bold text-[var(--text-primary)]">الخرطوم ← بورتسودان</p>
+                <p class="text-[11px] text-[var(--text-primary)]/50">رحلة تجريبية — عرض توضيحي</p>
+              </div>
+            </div>
+            <span class="rounded-full border border-[var(--primary)]/20 bg-[var(--primary-light)] px-2.5 py-1 text-[10px] font-semibold text-[var(--primary)]">نشطة</span>
+          </div>
+
+          <!-- seats -->
+          <p class="mt-5 text-[11px] font-semibold tracking-[0.1em] text-[var(--text-primary)]/50">المقاعد</p>
+          <div class="mt-2 flex gap-1.5">
+            @for (row of [0,1]; track row) {
+              <div class="flex gap-1.5">
+                @for (col of [0,1,2,3]; track col) {
+                  <span class="h-7 w-7 rounded-[6px] border text-[10px] font-medium flex items-center justify-center sm:h-8 sm:w-8"
+                    [class]="row === 0 && col === 1 ? 'bg-[var(--primary)] border-[var(--primary)] text-white' : row === 1 && col === 2 ? 'bg-white border-[var(--primary)]/30 text-[var(--text-primary)]/40' : 'bg-white border-[var(--border)] text-[var(--text-primary)]/30'"
+                  >0{{ row * 4 + col + 1 }}</span>
+                }
+              </div>
+            }
+          </div>
+
+          <!-- stats -->
+          <div class="mt-5 grid grid-cols-3 gap-3">
+            <div class="rounded-[12px] border border-[var(--border)] bg-[var(--bg-base)] px-3 py-3 text-center">
+              <p class="text-[10px] font-medium tracking-[0.1em] text-[var(--text-primary)]/50">الحجوزات</p>
+              <p class="mt-1 text-[18px] font-extrabold text-[var(--text-primary)]">24</p>
+            </div>
+            <div class="rounded-[12px] border border-[var(--border)] bg-[var(--bg-base)] px-3 py-3 text-center">
+              <p class="text-[10px] font-medium tracking-[0.1em] text-[var(--text-primary)]/50">المتاحة</p>
+              <p class="mt-1 text-[18px] font-extrabold text-[var(--primary)]">12</p>
+            </div>
+            <div class="rounded-[12px] border border-[var(--primary)]/20 bg-[var(--primary-light)]/40 px-3 py-3 text-center">
+              <p class="text-[10px] font-medium tracking-[0.1em] text-[var(--primary)]">الحالة</p>
+              <p class="mt-1 text-[12px] font-bold text-[var(--primary)]">نشطة</p>
+            </div>
+          </div>
+
+          <!-- booking states -->
+          <div class="mt-4 flex items-center gap-2 text-[10px] text-[var(--text-primary)]/45">
+            <span class="h-2 w-2 rounded-full bg-[var(--primary)]"></span> مؤكد
+            <span class="h-2 w-2 rounded-full bg-white border border-[var(--border)]"></span> متاح
+            <span class="h-2 w-2 rounded-full border border-[var(--primary)]/30 bg-white"></span> محجوز
+          </div>
+        </div>
+      </div>
+
+      <!-- Text + CTA side -->
+      <div class="order-1 lg:order-2">
+        <h2 id="dashboard-heading" class="text-[20px] font-extrabold leading-8 tracking-tight text-[var(--text-primary)] sm:text-[24px]">
+          رحلتك، مقاعدك، حجوزاتك — في مكان واحد.
+        </h2>
+        <p class="mt-3 text-[13px] leading-7 text-[var(--text-primary)]/60">
+          تصور توضيحي لواجهة إدارة الرحلات — بدون بيانات حقيقية أو إحصائيات مختلقة. المنصة تجمع العرض والإدارة والحجوزات في نظام موحّد.
+        </p>
+
+        <!-- Product flow chips -->
+        <div class="mt-6 flex flex-wrap gap-2">
+          <span class="rounded-full border border-[var(--border)] bg-white px-3 py-1.5 text-[11px] font-medium text-[var(--text-primary)]/70">رحلة</span>
+          <span class="text-[var(--primary)]/30 pt-1">↓</span>
+          <span class="rounded-full border border-[var(--border)] bg-white px-3 py-1.5 text-[11px] font-medium text-[var(--text-primary)]/70">مقاعد متاحة</span>
+          <span class="text-[var(--primary)]/30 pt-1">↓</span>
+          <span class="rounded-full border border-[var(--border)] bg-white px-3 py-1.5 text-[11px] font-medium text-[var(--text-primary)]/70">حجز</span>
+          <span class="text-[var(--primary)]/30 pt-1">↓</span>
+          <span class="rounded-full border border-[var(--border)] bg-white px-3 py-1.5 text-[11px] font-medium text-[var(--text-primary)]/70">مسافر</span>
+          <span class="text-[var(--primary)]/30 pt-1">↓</span>
+          <span class="rounded-full bg-[var(--primary)] px-3 py-1.5 text-[11px] font-semibold text-white">شركة</span>
+        </div>
+
+        <!-- Company app phone screenshot -->
+        <div class="mt-8 flex justify-center lg:justify-start">
+          <div class="relative w-[260px] overflow-hidden rounded-[36px] border-[6px] border-[var(--primary)] bg-[var(--primary)] p-2 shadow-xl sm:w-[280px]">
+            <div class="overflow-hidden rounded-[28px] bg-white">
+              <img ngSrc="company-app-screen.webp" width="720" height="1600" priority alt="شاشة تطبيق تفية لشركات النقل — إدارة الرحلات والحجوزات" class="block h-auto w-full object-cover" />
+            </div>
+            <div class="pointer-events-none absolute left-1/2 top-0 h-6 w-24 -translate-x-1/2 rounded-b-2xl bg-[var(--primary)]" aria-hidden="true"></div>
+          </div>
+        </div>
+
+        <!-- CTA block -->
+        <div class="mt-8 rounded-[16px] border border-[var(--border)] bg-[var(--bg-card)] p-6 sm:p-7">
+          <h3 class="text-[16px] font-extrabold tracking-tight text-[var(--text-primary)] sm:text-[18px]">جاهز لنقل مكتبك إلى الحجز الرقمي؟</h3>
+          <p class="mt-2 text-[13px] leading-6 text-[var(--text-primary)]/60">انضم إلى تفية وابدأ في عرض رحلاتك واستقبال الحجوزات رقمياً.</p>
+          <div class="mt-5 flex flex-col gap-3 sm:flex-row">
+            <a routerLink="/auth/login" class="inline-flex h-[44px] w-full items-center justify-center rounded-full bg-[var(--primary)] px-6 text-[13px] font-semibold text-white transition hover:bg-[var(--primary-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--primary)] focus-visible:ring-offset-2 sm:w-auto">
+              تسجيل الدخول
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

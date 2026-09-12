@@ -9,6 +9,12 @@ export const routes: Routes = [
         .then(m => m.AUTH_ROUTES),
   },
   {
+    path: 'welcome',
+    loadComponent: () =>
+      import('./pages/landing/landing/landing')
+        .then(m => m.LandingComponent),
+  },
+  {
     path: '',
     loadComponent: () =>
       import('./layout/layout/layout')
